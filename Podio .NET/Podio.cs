@@ -55,25 +55,53 @@ namespace PodioAPI
 
 		internal T Get<T>(string url, Dictionary<string, string> requestData = null, dynamic options = null) where T : new()
 		{
-			return Request<T>(RequestMethod.GET, url, requestData, options);
+			Task<T> getTask = GetAsync<T>(url, requestData, options);
+			getTask.Wait();
+			return getTask.Result;
+		}
+
+		internal async System.Threading.Tasks.Task<T> GetAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		{
+			return await Request<T>(RequestMethod.GET, url, requestData, options);
 		}
 
 		internal T Post<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return Request<T>(RequestMethod.POST, url, requestData, options);
+			Task<T> postTask = Request<T>(RequestMethod.POST, url, requestData, options);
+			postTask.Wait();
+			return postTask.Result;
+		}
+
+		internal async System.Threading.Tasks.Task<T> PostAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		{
+			return await Request<T>(RequestMethod.POST, url, requestData, options);
 		}
 
 		internal T Put<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return Request<T>(RequestMethod.PUT, url, requestData);
+			Task<T> putTask = PutAsync<T>(url, requestData, options);
+			putTask.Wait();
+			return putTask.Result;
+		}
+
+		internal async System.Threading.Tasks.Task<T> PutAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		{
+			return await Request<T>(RequestMethod.PUT, url, requestData);
 		}
 
 		internal T Delete<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return Request<T>(RequestMethod.DELETE, url, requestData);
+			Task<T> deleteTask = DeleteAsync<T>(url, requestData, options);
+			deleteTask.Wait();
+			return deleteTask.Result;
 		}
 
-		private T Request<T>(RequestMethod requestMethod, string url, dynamic requestData, dynamic options = null) where T : new()
+		internal async System.Threading.Tasks.Task<T> DeleteAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		{
+			return await Request<T>(RequestMethod.DELETE, url, requestData);
+		}
+
+		private async System.Threading.Tasks.Task<T> Request<T>(RequestMethod requestMethod, string url, dynamic requestData, dynamic options = null) where T : new()
 		{
 			Dictionary<string, string> requestHeaders = new Dictionary<string, string>();
 			var data = new List<string>();
@@ -195,8 +223,8 @@ namespace PodioAPI
 			try
 			{
 				Task<WebResponse> responseTask = System.Threading.Tasks.Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, request);
-				responseTask.Wait();
-				using (WebResponse response = responseTask.Result)
+				
+				using (WebResponse response = await responseTask)
 				{
 					podioResponse.Status = (int)((HttpWebResponse)response).StatusCode;
 					foreach (string key in response.Headers.AllKeys)
