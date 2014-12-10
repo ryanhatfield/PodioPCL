@@ -49,7 +49,7 @@ namespace PodioAPI.Models
         public List<Conversation> Conversations { get; set; }
 
         [JsonProperty("tasks")]
-        public List<Task> Tasks { get; set; }
+        public List<PodioTask> Tasks { get; set; }
 
         [JsonProperty("shares")]
         public List<AppMarketShare> Shares { get; set; }
