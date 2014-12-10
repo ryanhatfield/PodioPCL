@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace PodioAPI.Models
 {
@@ -116,7 +117,7 @@ namespace PodioAPI.Models
         public List<int> FileIds { get; set; }
 
         [JsonProperty("tasks")]
-        public List<Task> Tasks { get; set; }
+        public List<PodioTask> Tasks { get; set; }
 
         [JsonProperty("shares")]
         public List<AppMarketShare> Shares { get; set; }
@@ -153,11 +154,11 @@ namespace PodioAPI.Models
             T specificField = new T();
             if (genericField != null)
             {
-                foreach (var property in genericField.GetType().GetProperties())
+                foreach (var property in genericField.GetType().GetRuntimeProperties())
                 {
                     var jsonAttribute = ((JsonPropertyAttribute[])property.GetCustomAttributes(typeof(JsonPropertyAttribute), false));
                     if (jsonAttribute.Length > 0)
-                        specificField.GetType().GetProperty(property.Name).SetValue(specificField, property.GetValue(genericField, null), null);
+                        specificField.GetType().GetRuntimeProperty(property.Name).SetValue(specificField, property.GetValue(genericField, null), null);
                 }
             }
             else

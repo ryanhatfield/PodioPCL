@@ -26,19 +26,19 @@ namespace PodioAPI.Utils
             return (T)Convert.ChangeType(obj, typeof(T));
         }
 
-        public static IDictionary<string, object> AsDictionary(this object source, BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
-        {
-            return source.GetType().GetProperties(bindingAttr).ToDictionary
-            (
-                propInfo => propInfo.Name,
-                propInfo => propInfo.GetValue(source, null)
-            );
-        }
+		//public static IDictionary<string, object> AsDictionary(this object source, BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
+		//{
+		//	return source.GetType().GetProperties(bindingAttr).ToDictionary
+		//	(
+		//		propInfo => propInfo.Name,
+		//		propInfo => propInfo.GetValue(source, null)
+		//	);
+		//}
 
         private static object objectFromDict(object someObject, IDictionary<string, object> source)
         {
             var propertyMap = new Dictionary<string, PropertyInfo>();
-            foreach (var property in someObject.GetType().GetProperties())
+            foreach (var property in someObject.GetType().GetRuntimeProperties())
             {
                 var jsonAttribute = ((JsonPropertyAttribute[])property.GetCustomAttributes(typeof(JsonPropertyAttribute), false));
                 if (jsonAttribute.Length > 0)
@@ -86,9 +86,9 @@ namespace PodioAPI.Utils
                                 value = castedValue.Select(s => s.ToString()).ToArray();
                                 break;
                             case "List`1":
-                                if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(List<>))
+                                if (propertyType.IsGenericParameter && propertyType.GetGenericTypeDefinition() == typeof(List<>))
                                 {
-                                    Type itemType = propertyType.GetGenericArguments()[0];
+                                    Type itemType = propertyType.GenericTypeArguments[0];
                                     if(itemType.Name == "FileAttachment")
                                        value = castedValue.Select(s => s.ToObject<FileAttachment>()).ToList();
                                 }
@@ -108,9 +108,8 @@ namespace PodioAPI.Utils
             PropertyInfo propInfo = null;
             do
             {
-                propInfo = type.GetProperty(propertyName,
-                       BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                type = type.BaseType;
+				propInfo = type.GetRuntimeProperty(propertyName);
+				type = type.GetTypeInfo().BaseType;
             }
             while (propInfo == null && type != null);
             return propInfo;

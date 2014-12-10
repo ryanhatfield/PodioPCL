@@ -2,15 +2,18 @@
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{366D6850-6BCD-4829-AC92-1E9365F781B7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PodioAPI</RootNamespace>
-    <AssemblyName>Podio.NET</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AssemblyName>PodioAPI</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -23,6 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,21 +36,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\Podio.NET.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\PodioException.cs" />
     <Compile Include="Models\ActivityGroup.cs" />
@@ -160,11 +151,11 @@
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\TaggedObject.cs" />
-    <Compile Include="Models\Task.cs" />
-    <Compile Include="Models\TaskCollection.cs" />
-    <Compile Include="Models\TaskLabel.cs" />
-    <Compile Include="Models\TaskReport.cs" />
-    <Compile Include="Models\TaskSummary.cs" />
+    <Compile Include="Models\PodioTask.cs" />
+    <Compile Include="Models\PodioTaskCollection.cs" />
+    <Compile Include="Models\PodioTaskLabel.cs" />
+    <Compile Include="Models\PodioTaskReport.cs" />
+    <Compile Include="Models\PodioTaskSummary.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserMail.cs" />
     <Compile Include="Models\UserStatus.cs" />
@@ -204,7 +195,7 @@
     <Compile Include="Services\StreamService.cs" />
     <Compile Include="Services\SubscriptionService.cs" />
     <Compile Include="Services\TagService.cs" />
-    <Compile Include="Services\TaskService.cs" />
+    <Compile Include="Services\PodioTaskService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="Services\ViewService.cs" />
     <Compile Include="Services\WidgetService.cs" />
@@ -227,7 +218,6 @@
     <Compile Include="Utils\Authentication\IAuthStore.cs" />
     <Compile Include="Utils\Authentication\NullAuthStore.cs" />
     <Compile Include="Utils\Authentication\PodioOAuth.cs" />
-    <Compile Include="Utils\Authentication\SessionAuthStore.cs" />
     <Compile Include="Utils\ItemFields\AppItemField.cs" />
     <Compile Include="Utils\ItemFields\CalculationItemField.cs" />
     <Compile Include="Utils\ItemFields\CategoryItemField.cs" />
@@ -250,9 +240,16 @@
     <Compile Include="Utils\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
