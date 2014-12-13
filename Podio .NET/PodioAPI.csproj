@@ -64,6 +64,7 @@
     <Compile Include="Models\Grant.cs" />
     <Compile Include="Models\ImporterInfo.cs" />
     <Compile Include="Models\IntegrationAvailableAppField.cs" />
+    <Compile Include="Models\ItemFieldTypes.cs" />
     <Compile Include="Models\Notifications.cs" />
     <Compile Include="Models\OrganizationContactTotal.cs" />
     <Compile Include="Models\OrganizationLoginReport.cs" />
@@ -228,16 +229,24 @@
     <Compile Include="Utils\ItemFields\EmbedItemField.cs" />
     <Compile Include="Utils\ItemFields\ImageItemField.cs" />
     <Compile Include="Utils\ItemFields\LocationItemField.cs" />
+    <Compile Include="Utils\ItemFields\MemberItemField.cs" />
     <Compile Include="Utils\ItemFields\MoneyItemField.cs" />
     <Compile Include="Utils\ItemFields\NumericItemField.cs" />
     <Compile Include="Utils\ItemFields\ProgressItemField.cs" />
     <Compile Include="Utils\ItemFields\QuestionItemField.cs" />
     <Compile Include="Utils\ItemFields\StateItemField.cs" />
     <Compile Include="Utils\ItemFields\TextItemField.cs" />
+    <Compile Include="Utils\ItemFields\VideoItemField.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utils\MimeTypeMapping.cs" />
     <Compile Include="Utils\ObjectExtensions.cs" />
     <Compile Include="Utils\PodioCollection.cs" />
-    <Compile Include="Utils\Serialization\JSONSerializer.cs" />
+    <Compile Include="Utils\Serialization\ItemFieldConverter.cs" />
+    <Compile Include="Utils\Serialization\JSONSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utils\Serialization\NestedDictionaryConverter.cs" />
     <Compile Include="Utils\Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
