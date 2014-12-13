@@ -12,11 +12,10 @@
 // <summary></summary>
 // ***********************************************************************
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
-using PodioPCL.Utils;
 using Newtonsoft.Json.Linq;
 using PodioPCL.Utils.Serialization;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PodioPCL.Models
 {
