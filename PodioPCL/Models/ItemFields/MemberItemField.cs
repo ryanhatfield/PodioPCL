@@ -1,12 +1,32 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="MemberItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class MemberItemField.
+	/// </summary>
 	public class MemberItemField : ItemField
 	{
 		private List<User> _users;
 
+		/// <summary>
+		/// Gets the users.
+		/// </summary>
+		/// <value>The users.</value>
 		public IEnumerable<User> Users
 		{
 			get
@@ -32,6 +52,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Sets the user identifier.
+		/// </summary>
+		/// <value>The user identifier.</value>
 		public int UserId
 		{
 			set

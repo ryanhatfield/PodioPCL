@@ -1,9 +1,16 @@
 ﻿
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ReminderService.
+	/// </summary>
     public class ReminderService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ReminderService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public ReminderService(Podio currentInstance)
         {
             _podio = currentInstance;

@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class QuestionApplicationField.
+	/// </summary>
 	public class QuestionApplicationField : ApplicationField
 	{
 		[JsonIgnore]
@@ -14,6 +17,7 @@ namespace PodioPCL.Utils.ApplicationFields
 		/// <summary>
 		/// The list of options for the question
 		/// </summary>
+		/// <value>The options.</value>
 		public IEnumerable<CategoryItemField.Option> Options
 		{
 			get
@@ -34,6 +38,7 @@ namespace PodioPCL.Utils.ApplicationFields
 		/// <summary>
 		/// True if multiple options should be allowed, False otherwise
 		/// </summary>
+		/// <value><c>true</c> if multiple; otherwise, <c>false</c>.</value>
 		public bool Multiple
 		{
 			get

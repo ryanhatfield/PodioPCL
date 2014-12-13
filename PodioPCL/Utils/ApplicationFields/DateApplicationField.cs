@@ -2,6 +2,9 @@
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class DateApplicationField.
+	/// </summary>
     public class DateApplicationField : ApplicationField
     {
         /// <summary>

@@ -5,12 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Podio.NET")]
-[assembly: AssemblyDescription("Podio API C# Client")]
+[assembly: AssemblyTitle("PodioPCL")]
+[assembly: AssemblyDescription("Podio API PCL C# Client")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("https://podio.com")]
-[assembly: AssemblyProduct("PodioAPI")]
-[assembly: AssemblyCopyright("Copyright ©  Podio 2014")]
+[assembly: AssemblyCompany("https://github.com/OnsharpRyan")]
+[assembly: AssemblyProduct("PodioPCL")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

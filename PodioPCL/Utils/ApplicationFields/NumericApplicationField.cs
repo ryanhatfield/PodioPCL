@@ -2,6 +2,9 @@
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class NumericApplicationField.
+	/// </summary>
     public class NumericApplicationField : ApplicationField
     {
         /// <summary>

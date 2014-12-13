@@ -6,9 +6,16 @@ using System.Linq;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ApplicationService.
+	/// </summary>
     public class ApplicationService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ApplicationService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public ApplicationService(Podio currentInstance)
         {
             _podio = currentInstance;
@@ -69,13 +76,13 @@ namespace PodioPCL.Services
             return _podio.Get<List<Application>>(url, requestData);
         }
 
-        /// <summary>
-        /// Returns the features that the given apps and optionally space includes.The current list of features are widgets, tasks, filters, forms, integration, items.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/applications/get-features-43648 </para>
-        /// </summary>
-        /// <param name="appId"> A comma-separated list of app ids from which the features should be extracted </param>
-        /// <param name="includeSpace"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// Returns the features that the given apps and optionally space includes.The current list of features are widgets, tasks, filters, forms, integration, items.
+		/// <para>Podio API Reference: https://developers.podio.com/doc/applications/get-features-43648 </para>
+		/// </summary>
+		/// <param name="appIds">The application ids.</param>
+		/// <param name="includeSpace">if set to <c>true</c> [include space].</param>
+		/// <returns>List&lt;System.String&gt;.</returns>
         public List<string> GetFeatures(int[] appIds, bool includeSpace = false)
         {
             string appIdCSV = Utilities.ArrayToCSV(appIds);

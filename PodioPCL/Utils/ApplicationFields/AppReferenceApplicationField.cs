@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class AppReferenceApplicationField.
+	/// </summary>
     public class AppReferenceApplicationField: ApplicationField
     {
         private IEnumerable<int> _referenceableTypes;

@@ -1,10 +1,30 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="MoneyItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Linq;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class MoneyItemField.
+	/// </summary>
 	public class MoneyItemField : ItemField
 	{
+		/// <summary>
+		/// Gets or sets the currency.
+		/// </summary>
+		/// <value>The currency.</value>
 		public string Currency
 		{
 			get
@@ -25,6 +45,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the value.
+		/// </summary>
+		/// <value>The value.</value>
 		public decimal? Value
 		{
 			get

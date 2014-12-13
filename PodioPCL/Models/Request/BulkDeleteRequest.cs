@@ -1,9 +1,25 @@
-﻿using Newtonsoft.Json;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-09-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="BulkDeleteRequest.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
 namespace PodioPCL.Models.Request
 {
+	/// <summary>
+	/// Class BulkDeleteRequest.
+	/// </summary>
     public class BulkDeleteRequest
     {
         /// <summary>

@@ -1,4 +1,17 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : PodioAPI
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="Podio.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,14 +27,45 @@ using System.Threading.Tasks;
 
 namespace PodioPCL
 {
+	/// <summary>
+	/// Class Podio.
+	/// </summary>
 	public class Podio
 	{
+		/// <summary>
+		/// Gets or sets the client identifier.
+		/// </summary>
+		/// <value>The client identifier.</value>
 		protected string ClientId { get; set; }
+		/// <summary>
+		/// Gets or sets the client secret.
+		/// </summary>
+		/// <value>The client secret.</value>
 		protected string ClientSecret { get; set; }
+		/// <summary>
+		/// Gets or sets the o authentication.
+		/// </summary>
+		/// <value>The o authentication.</value>
 		public PodioOAuth OAuth { get; set; }
+		/// <summary>
+		/// Gets or sets the authentication store.
+		/// </summary>
+		/// <value>The authentication store.</value>
 		public IAuthStore AuthStore { get; set; }
+		/// <summary>
+		/// Gets the rate limit.
+		/// </summary>
+		/// <value>The rate limit.</value>
 		public int RateLimit { get; private set; }
+		/// <summary>
+		/// Gets the rate limit remaining.
+		/// </summary>
+		/// <value>The rate limit remaining.</value>
 		public int RateLimitRemaining { get; private set; }
+		/// <summary>
+		/// Gets or sets the API URL.
+		/// </summary>
+		/// <value>The API URL.</value>
 		protected string ApiUrl { get; set; }
 
 		/// <summary>
@@ -36,6 +80,12 @@ namespace PodioPCL
 			internalConstructor(clientId, clientSecret, authStore);
 		}
 
+		/// <summary>
+		/// Internals the constructor.
+		/// </summary>
+		/// <param name="clientId">The client identifier.</param>
+		/// <param name="clientSecret">The client secret.</param>
+		/// <param name="authStore">The authentication store.</param>
 		private void internalConstructor(string clientId, string clientSecret, IAuthStore authStore)
 		{
 			ClientId = clientId;
@@ -52,6 +102,14 @@ namespace PodioPCL
 
 		#region Request Helpers
 
+		/// <summary>
+		/// Gets the specified URL.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>T.</returns>
 		internal T Get<T>(string url, Dictionary<string, string> requestData = null, dynamic options = null) where T : new()
 		{
 			Task<T> getTask = GetAsync<T>(url, requestData, options);
@@ -59,11 +117,27 @@ namespace PodioPCL
 			return getTask.Result;
 		}
 
+		/// <summary>
+		/// get as an asynchronous operation.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
 		internal async System.Threading.Tasks.Task<T> GetAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			return await Request<T>(RequestMethod.GET, url, requestData, options);
 		}
 
+		/// <summary>
+		/// Posts the specified URL.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>T.</returns>
 		internal T Post<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			Task<T> postTask = Request<T>(RequestMethod.POST, url, requestData, options);
@@ -71,11 +145,27 @@ namespace PodioPCL
 			return postTask.Result;
 		}
 
+		/// <summary>
+		/// post as an asynchronous operation.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
 		internal async System.Threading.Tasks.Task<T> PostAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			return await Request<T>(RequestMethod.POST, url, requestData, options);
 		}
 
+		/// <summary>
+		/// Puts the specified URL.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>T.</returns>
 		internal T Put<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			Task<T> putTask = PutAsync<T>(url, requestData, options);
@@ -83,11 +173,27 @@ namespace PodioPCL
 			return putTask.Result;
 		}
 
+		/// <summary>
+		/// put as an asynchronous operation.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
 		internal async System.Threading.Tasks.Task<T> PutAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			return await Request<T>(RequestMethod.PUT, url, requestData);
 		}
 
+		/// <summary>
+		/// Deletes the specified URL.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>T.</returns>
 		internal T Delete<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			Task<T> deleteTask = DeleteAsync<T>(url, requestData, options);
@@ -95,11 +201,40 @@ namespace PodioPCL
 			return deleteTask.Result;
 		}
 
+		/// <summary>
+		/// delete as an asynchronous operation.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
 		internal async System.Threading.Tasks.Task<T> DeleteAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
 			return await Request<T>(RequestMethod.DELETE, url, requestData);
 		}
 
+		/// <summary>
+		/// Requests the specified request method.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="requestMethod">The request method.</param>
+		/// <param name="url">The URL.</param>
+		/// <param name="requestData">The request data.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
+		/// <exception cref="System.Exception">ClientId and ClientSecret is not set</exception>
+		/// <exception cref="PodioInvalidGrantException"></exception>
+		/// <exception cref="PodioBadRequestException"></exception>
+		/// <exception cref="PodioAuthorizationException"></exception>
+		/// <exception cref="PodioForbiddenException"></exception>
+		/// <exception cref="PodioNotFoundException"></exception>
+		/// <exception cref="PodioConflictException"></exception>
+		/// <exception cref="PodioGoneException"></exception>
+		/// <exception cref="PodioRateLimitException"></exception>
+		/// <exception cref="PodioServerException"></exception>
+		/// <exception cref="PodioUnavailableException"></exception>
+		/// <exception cref="PodioException"></exception>
 		private async System.Threading.Tasks.Task<T> Request<T>(RequestMethod requestMethod, string url, dynamic requestData, dynamic options = null) where T : new()
 		{
 			Dictionary<string, string> requestHeaders = new Dictionary<string, string>();
@@ -351,9 +486,9 @@ namespace PodioPCL
 		/// <summary>
 		/// Transform options object to query parameteres
 		/// </summary>
-		/// <param name="url"></param>
-		/// <param name="options"></param>
-		/// <returns></returns>
+		/// <param name="url">The URL.</param>
+		/// <param name="options">The options.</param>
+		/// <returns>System.String.</returns>
 		internal string PrepareUrlWithOptions(string url, CreateUpdateOptions options)
 		{
 			string urlWithOptions = "";
@@ -372,7 +507,7 @@ namespace PodioPCL
 		/// <summary>
 		/// Write an object to request stream.
 		/// </summary>
-		/// <param name="obj"></param>
+		/// <param name="obj">The object.</param>
 		/// <param name="request">HttpWebRequest object of which request to write</param>
 		internal void WriteToRequestStream(object obj, HttpWebRequest request)
 		{
@@ -401,8 +536,8 @@ namespace PodioPCL
 		/// <summary>
 		/// Convert dictionay to to query string
 		/// </summary>
-		/// <param name="attributes"></param>
-		/// <returns></returns>
+		/// <param name="attributes">The attributes.</param>
+		/// <returns>System.String.</returns>
 		internal static string EncodeAttributes(Dictionary<string, string> attributes)
 		{
 			var encodedString = string.Empty;
@@ -428,9 +563,11 @@ namespace PodioPCL
 		/// <summary>
 		/// Add a file to request stream
 		/// </summary>
-		/// <param name="filePath">Physical path to file</param>
+		/// <param name="file">The file.</param>
 		/// <param name="fileName">File Name</param>
+		/// <param name="mimeType">Type of the MIME.</param>
 		/// <param name="request">HttpWebRequest object of which request stream file is added to</param>
+		/// <exception cref="System.IO.FileNotFoundException">File not found in the specified path</exception>
 		private void AddFileToRequestStream(byte[] file, string fileName, string mimeType, HttpWebRequest request)
 		{
 			byte[] inputData;
@@ -506,11 +643,12 @@ namespace PodioPCL
 			return Authenticate("app", authRequest);
 		}
 
-		/// <summary> Authenticate with username and password
+		/// <summary>
+		/// Authenticate with username and password
 		/// <para>Podio API Reference: https://developers.podio.com/authentication/username_password </para>
-		/// </summary> 
-		/// <param name="username"></param>
-		/// <param name="password"></param>
+		/// </summary>
+		/// <param name="username">The username.</param>
+		/// <param name="password">The password.</param>
 		/// <returns>PodioOAuth object with OAuth data</returns>
 		public PodioOAuth AuthenticateWithPassword(string username, string password)
 		{
@@ -522,11 +660,12 @@ namespace PodioPCL
 			return Authenticate("password", authRequest);
 		}
 
-		/// <summary> Authenticate with an authorization code
+		/// <summary>
+		/// Authenticate with an authorization code
 		/// <para>Podio API Reference: https://developers.podio.com/authentication/server_side </para>
 		/// </summary>
-		/// <param name="authorizationCode"></param>
-		/// <param name="redirectUri"></param>
+		/// <param name="authorizationCode">The authorization code.</param>
+		/// <param name="redirectUri">The redirect URI.</param>
 		/// <returns>PodioOAuth object with OAuth data</returns>
 
 		public PodioOAuth AuthenticateWithAuthorizationCode(string authorizationCode, string redirectUri)
@@ -539,10 +678,10 @@ namespace PodioPCL
 			return Authenticate("authorization_code", authRequest);
 		}
 
-		/// <summary> Refresh the Access Token.
-		/// <para>When the access token expires, you can use this method to refresh your access, and gain another access_token</para>
-		/// <para>Podio API Reference: https://developers.podio.com/authentication </para>
-		/// </summary> 
+		/// <summary>
+		/// Refresh the Access Token.
+		/// <para>When the access token expires, you can use this method to refresh your access, and gain another access_token</para><para>Podio API Reference: https://developers.podio.com/authentication </para>
+		/// </summary>
 		/// <returns>PodioOAuth object with OAuth data</returns>
 		public PodioOAuth RefreshAccessToken()
 		{
@@ -553,6 +692,12 @@ namespace PodioPCL
 			return Authenticate("refresh_token", authRequest);
 		}
 
+		/// <summary>
+		/// Authenticates the specified grant type.
+		/// </summary>
+		/// <param name="grantType">Type of the grant.</param>
+		/// <param name="attributes">The attributes.</param>
+		/// <returns>PodioOAuth.</returns>
 		private PodioOAuth Authenticate(string grantType, Dictionary<string, string> attributes)
 		{
 			attributes["client_id"] = ClientId;
@@ -573,7 +718,7 @@ namespace PodioPCL
 		/// Constructs the full url to Podio's authorization endpoint (To get AuthorizationCode in server-side flow)
 		/// </summary>
 		/// <param name="redirectUri">The redirectUri must be on the same domain as the domain you specified when you applied for your API Key</param>
-		/// <returns></returns>
+		/// <returns>System.String.</returns>
 		public string GetAuthorizeUrl(string redirectUri)
 		{
 			string authorizeUrl = "https://podio.com/oauth/authorize?response_type=code&client_id={0}&redirect_uri={1}";
@@ -583,7 +728,7 @@ namespace PodioPCL
 		/// <summary>
 		/// Check if there is a stored access token already present.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns><c>true</c> if this instance is authenticated; otherwise, <c>false</c>.</returns>
 		public bool IsAuthenticated()
 		{
 			return (this.OAuth != null && !string.IsNullOrEmpty(this.OAuth.AccessToken));
@@ -597,6 +742,7 @@ namespace PodioPCL
 		/// Provies all API methods in Item Area
 		/// <para>Podio API Reference: https://developers.podio.com/doc/items </para>
 		/// </summary>
+		/// <value>The item service.</value>
 		public ItemService ItemService
 		{
 			get { return new ItemService(this); }
@@ -606,6 +752,7 @@ namespace PodioPCL
 		/// Provies all API methods in Files Area
 		/// <para>Podio API Reference: https://developers.podio.com/doc/files </para>
 		/// </summary>
+		/// <value>The file service.</value>
 		public FileService FileService
 		{
 			get { return new FileService(this); }
@@ -615,6 +762,7 @@ namespace PodioPCL
 		/// Provies all API methods in Embed Area
 		/// <para>https://developers.podio.com/doc/embeds</para>
 		/// </summary>
+		/// <value>The embed service.</value>
 		public EmbedService EmbedService
 		{
 			get { return new EmbedService(this); }
@@ -624,6 +772,7 @@ namespace PodioPCL
 		/// Provies all API methods in Embed Area
 		/// <para>https://developers.podio.com/doc/applications</para>
 		/// </summary>
+		/// <value>The application service.</value>
 		public ApplicationService ApplicationService
 		{
 			get { return new ApplicationService(this); }
@@ -633,6 +782,7 @@ namespace PodioPCL
 		/// Provies all API methods in Tasks Area
 		/// <para>https://developers.podio.com/doc/tasks</para>
 		/// </summary>
+		/// <value>The task service.</value>
 		public PodioTaskService TaskService
 		{
 			get { return new PodioTaskService(this); }
@@ -642,6 +792,7 @@ namespace PodioPCL
 		/// Provies all API methods in Status Area
 		/// <para>https://developers.podio.com/doc/status</para>
 		/// </summary>
+		/// <value>The status service.</value>
 		public StatusService StatusService
 		{
 			get { return new StatusService(this); }
@@ -651,6 +802,7 @@ namespace PodioPCL
 		/// Provies all API methods in Contact Area
 		/// <para>https://developers.podio.com/doc/contacts</para>
 		/// </summary>
+		/// <value>The contact service.</value>
 		public ContactService ContactService
 		{
 			get { return new ContactService(this); }
@@ -660,6 +812,7 @@ namespace PodioPCL
 		/// Provies all API methods in Hook Area
 		/// <para> https://developers.podio.com/doc/hooks </para>
 		/// </summary>
+		/// <value>The hook service.</value>
 		public HookService HookService
 		{
 			get { return new HookService(this); }
@@ -669,6 +822,7 @@ namespace PodioPCL
 		/// Provies all API methods in Hook Area
 		/// <para> https://developers.podio.com/doc/hooks </para>
 		/// </summary>
+		/// <value>The comment service.</value>
 		public CommentService CommentService
 		{
 			get { return new CommentService(this); }
@@ -678,6 +832,7 @@ namespace PodioPCL
 		/// Provies all API methods in Organization Area
 		/// <para> https://developers.podio.com/doc/organizations </para>
 		/// </summary>
+		/// <value>The organization service.</value>
 		public OrganizationService OrganizationService
 		{
 			get { return new OrganizationService(this); }
@@ -687,6 +842,7 @@ namespace PodioPCL
 		/// Provies all API methods in Space Area
 		/// <para> https://developers.podio.com/doc/spaces </para>
 		/// </summary>
+		/// <value>The space service.</value>
 		public SpaceService SpaceService
 		{
 			get { return new SpaceService(this); }
@@ -696,6 +852,7 @@ namespace PodioPCL
 		/// Provies all API methods in SpaceMember Area
 		/// <para> https://developers.podio.com/doc/space-members </para>
 		/// </summary>
+		/// <value>The space members service.</value>
 		public SpaceMembersService SpaceMembersService
 		{
 			get { return new SpaceMembersService(this); }
@@ -705,6 +862,7 @@ namespace PodioPCL
 		/// Provies all API methods in  Widgets Area
 		/// <para> https://developers.podio.com/doc/widgets </para>
 		/// </summary>
+		/// <value>The widget service.</value>
 		public WidgetService WidgetService
 		{
 			get { return new WidgetService(this); }
@@ -714,6 +872,7 @@ namespace PodioPCL
 		/// Provies API methods in Stream Area
 		/// <para> https://developers.podio.com/doc/stream </para>
 		/// </summary>
+		/// <value>The stream service.</value>
 		public StreamService StreamService
 		{
 			get { return new StreamService(this); }
@@ -723,14 +882,16 @@ namespace PodioPCL
 		/// Provies all API methods in  Reference Area
 		/// <para> https://developers.podio.com/doc/reference </para>
 		/// </summary>
+		/// <value>The reference service.</value>
 		public ReferenceService ReferenceService
 		{
 			get { return new ReferenceService(this); }
 		}
 
-		///Provies all API methods in Grants area
-		///<para> https://developers.nextpodio.dk/doc/grants </para>
-		///</summary>
+		/// <summary>
+		/// Gets the grant service.
+		/// </summary>
+		/// <value>The grant service.</value>
 		public GrantService GrantService
 		{
 			get { return new GrantService(this); }
@@ -740,6 +901,7 @@ namespace PodioPCL
 		/// Provies all API methods in Search area
 		/// <para> https://developers.podio.com/doc/search </para>
 		/// </summary>
+		/// <value>The search service.</value>
 		public SearchService SearchService
 		{
 			get { return new SearchService(this); }
@@ -749,6 +911,7 @@ namespace PodioPCL
 		/// Provies all API methods in Rating Area
 		/// <para> https://developers.podio.com/doc/ratings </para>
 		/// </summary>
+		/// <value>The rating service.</value>
 		public RatingService RatingService
 		{
 			get { return new RatingService(this); }
@@ -758,23 +921,26 @@ namespace PodioPCL
 		/// Provies all API methods in Tag Area
 		/// <para> https://developers.podio.com/doc/tags </para>
 		/// </summary>
+		/// <value>The tag service.</value>
 		public TagService TagService
 		{
 			get { return new TagService(this); }
 		}
 
-		///Provies all API methods in Batch area
-		///<para> https://developers.podio.com/doc/batch </para>
-		///</summary>
+		/// <summary>
+		/// Gets the batch service.
+		/// </summary>
+		/// <value>The batch service.</value>
 		public BatchService BatchService
 		{
 			get { return new BatchService(this); }
 		}
 
-		///<summary>
-		///Provies all API methods in Actions area
-		///<para> https://developers.podio.com/doc/actions </para>
-		///</summary>
+		/// <summary>
+		/// Provies all API methods in Actions area
+		/// <para> https://developers.podio.com/doc/actions </para>
+		/// </summary>
+		/// <value>The action service.</value>
 		public ActionService ActionService
 		{
 			get { return new ActionService(this); }
@@ -784,32 +950,36 @@ namespace PodioPCL
 		/// Provies all API methods in Calendar Area
 		/// <para> https://developers.podio.com/doc/calendar </para>
 		/// </summary>
+		/// <value>The calendar service.</value>
 		public CalendarService CalendarService
 		{
 			get { return new CalendarService(this); }
 		}
 
-		///<summary>
-		///Provies all API methods in Conversations area
-		///<para> https://developers.podio.com/doc/conversations </para>
-		///</summary>
+		/// <summary>
+		/// Provies all API methods in Conversations area
+		/// <para> https://developers.podio.com/doc/conversations </para>
+		/// </summary>
+		/// <value>The conversation service.</value>
 		public ConversationService ConversationService
 		{
 			get { return new ConversationService(this); }
 		}
 
-		///<summary>
-		///Provies all API methods in Notifications area
-		///<para> https://developers.podio.com/doc/notifications </para>
-		///</summary>
+		/// <summary>
+		/// Provies all API methods in Notifications area
+		/// <para> https://developers.podio.com/doc/notifications </para>
+		/// </summary>
+		/// <value>The notification service.</value>
 		public NotificationService NotificationService
 		{
 			get { return new NotificationService(this); }
 		}
 
-		///Provies all API methods in Reminder area
-		///<para> https://developers.podio.com/doc/reminders </para>
-		///</summary>
+		/// <summary>
+		/// Gets the reminder service.
+		/// </summary>
+		/// <value>The reminder service.</value>
 		public ReminderService ReminderService
 		{
 			get { return new ReminderService(this); }
@@ -819,6 +989,7 @@ namespace PodioPCL
 		/// Provies all API methods in Recurrence Area
 		/// <para> https://developers.podio.com/doc/recurrence </para>
 		/// </summary>
+		/// <value>The recurrence service.</value>
 		public RecurrenceService RecurrenceService
 		{
 			get { return new RecurrenceService(this); }
@@ -828,6 +999,7 @@ namespace PodioPCL
 		/// Provies all API methods in Importer area
 		/// <para> https://developers.podio.com/doc/importer </para>
 		/// </summary>
+		/// <value>The importer service.</value>
 		public ImporterService ImporterService
 		{
 			get { return new ImporterService(this); }
@@ -837,15 +1009,17 @@ namespace PodioPCL
 		/// Provies all API methods in Question Area
 		/// <para> https://developers.podio.com/doc/questions </para>
 		/// </summary>
+		/// <value>The question service.</value>
 		public QuestionService QuestionService
 		{
 			get { return new QuestionService(this); }
 		}
 
-		///<summary>
-		///Provies all API methods in Subscriptions area
-		///<para> https://developers.podio.com/doc/subscriptions </para>
-		///</summary>
+		/// <summary>
+		/// Provies all API methods in Subscriptions area
+		/// <para> https://developers.podio.com/doc/subscriptions </para>
+		/// </summary>
+		/// <value>The subscription service.</value>
 		public SubscriptionService SubscriptionService
 		{
 			get { return new SubscriptionService(this); }
@@ -855,6 +1029,7 @@ namespace PodioPCL
 		/// Provies API methods in User Area
 		/// <para> https://developers.podio.com/doc/users </para>
 		/// </summary>
+		/// <value>The user service.</value>
 		public UserService UserService
 		{
 			get { return new UserService(this); }
@@ -864,6 +1039,7 @@ namespace PodioPCL
 		/// Provies API methods in Forms area
 		/// <para> https://developers.podio.com/doc/forms </para>
 		/// </summary>
+		/// <value>The form service.</value>
 		public FormService FormService
 		{
 			get { return new FormService(this); }
@@ -872,15 +1048,17 @@ namespace PodioPCL
 		/// <summary>
 		/// Provies all API methods in  AppMarket Area
 		/// <para> https://developers.podio.com/doc/app-store </para>
-		/// </summary>       
+		/// </summary>
+		/// <value>The application market service.</value>
 		public AppMarketService AppMarketService
 		{
 			get { return new AppMarketService(this); }
 		}
 
-		///Provies all API methods in Views area
-		///<para> https://developers.podio.com/doc/filters </para>
-		///</summary>
+		/// <summary>
+		/// Gets the view service.
+		/// </summary>
+		/// <value>The view service.</value>
 		public ViewService ViewService
 		{
 			get { return new ViewService(this); }
@@ -890,6 +1068,7 @@ namespace PodioPCL
 		/// Provies API methods in Integrations area
 		/// <para> https://developers.podio.com/doc/integrations </para>
 		/// </summary>
+		/// <value>The integration service.</value>
 		public IntegrationService IntegrationService
 		{
 			get { return new IntegrationService(this); }
@@ -899,14 +1078,33 @@ namespace PodioPCL
 		/// Provies API methods in Flow area
 		/// <para> https://developers.podio.com/doc/flows </para>
 		/// </summary>
+		/// <value>The flow service.</value>
 		public FlowService FlowService
 		{
 			get { return new FlowService(this); }
 		}
 		#endregion
 	}
+	/// <summary>
+	/// Enum RequestMethod
+	/// </summary>
 	public enum RequestMethod
 	{
-		GET, POST, PUT, DELETE
+		/// <summary>
+		/// The get
+		/// </summary>
+		GET,
+		/// <summary>
+		/// The post
+		/// </summary>
+		POST,
+		/// <summary>
+		/// The put
+		/// </summary>
+		PUT,
+		/// <summary>
+		/// The delete
+		/// </summary>
+		DELETE
 	}
 }

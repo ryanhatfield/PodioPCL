@@ -3,9 +3,16 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class RatingService.
+	/// </summary>
     public class RatingService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RatingService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public RatingService(Podio currentInstance)
         {
             _podio = currentInstance;

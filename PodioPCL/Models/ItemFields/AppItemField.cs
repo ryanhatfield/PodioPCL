@@ -1,12 +1,35 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="AppItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class AppItemField.
+	/// </summary>
 	public class AppItemField : ItemField
 	{
+		/// <summary>
+		/// The _items
+		/// </summary>
 		private List<Item> _items;
 
+		/// <summary>
+		/// Gets the items.
+		/// </summary>
+		/// <value>The items.</value>
 		public IEnumerable<Item> Items
 		{
 			get
@@ -15,6 +38,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Sets the item ids.
+		/// </summary>
+		/// <value>The item ids.</value>
 		public IEnumerable<int> ItemIds
 		{
 			set
@@ -28,6 +55,10 @@ namespace PodioPCL.Models.ItemFields
 				}
 			}
 		}
+		/// <summary>
+		/// Sets the item identifier.
+		/// </summary>
+		/// <value>The item identifier.</value>
 		public int ItemId
 		{
 			set

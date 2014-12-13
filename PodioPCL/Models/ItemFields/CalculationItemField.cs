@@ -1,10 +1,30 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="CalculationItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Linq;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class CalculationItemField.
+	/// </summary>
 	public class CalculationItemField : ItemField
 	{
+		/// <summary>
+		/// Gets the value.
+		/// </summary>
+		/// <value>The value.</value>
 		public float? Value
 		{
 			get
@@ -20,6 +40,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Gets the value as string.
+		/// </summary>
+		/// <value>The value as string.</value>
 		public string ValueAsString
 		{
 			get
@@ -35,6 +59,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Gets the start.
+		/// </summary>
+		/// <value>The start.</value>
 		public DateTime? Start
 		{
 			get
@@ -50,6 +78,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Gets the start UTC.
+		/// </summary>
+		/// <value>The start UTC.</value>
 		public DateTime? StartUTC
 		{
 			get

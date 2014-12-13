@@ -1,12 +1,32 @@
-﻿using Newtonsoft.Json.Linq;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="LocationItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class LocationItemField.
+	/// </summary>
     public class LocationItemField : ItemField
     {
+		/// <summary>
+		/// Gets or sets the locations.
+		/// </summary>
+		/// <value>The locations.</value>
         public IEnumerable<string> Locations
         {
             get
@@ -30,6 +50,10 @@ namespace PodioPCL.Models.ItemFields
 
 
         }
+		/// <summary>
+		/// Sets the location.
+		/// </summary>
+		/// <value>The location.</value>
         public string Location
         {
           

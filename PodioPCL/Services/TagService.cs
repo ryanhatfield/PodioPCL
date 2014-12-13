@@ -4,9 +4,16 @@ using PodioPCL.Utils;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class TagService.
+	/// </summary>
     public class TagService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TagService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public TagService(Podio currentInstance)
         {
             _podio = currentInstance;

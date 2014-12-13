@@ -3,6 +3,10 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils
 {
+	/// <summary>
+	/// Class PodioCollection.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
     public class PodioCollection<T>
     {
         /// <summary>
@@ -17,6 +21,10 @@ namespace PodioPCL.Utils
         [JsonProperty(PropertyName = "filtered")]
         public int Filtered { get; set; }
 
+		/// <summary>
+		/// Gets or sets the items.
+		/// </summary>
+		/// <value>The items.</value>
         [JsonProperty(PropertyName = "items")]
         public IEnumerable<T> Items { get; set; }
     }

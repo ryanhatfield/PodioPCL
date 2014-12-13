@@ -2,9 +2,16 @@
 using PodioPCL.Models;
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class AppMarketService.
+	/// </summary>
     public class AppMarketService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="AppMarketService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public AppMarketService(Podio currentInstance)
         {
             _podio = currentInstance;

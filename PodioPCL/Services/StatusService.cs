@@ -4,9 +4,16 @@ using System.Dynamic;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class StatusService.
+	/// </summary>
     public class StatusService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StatusService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public StatusService(Podio currentInstance)
         {
             _podio = currentInstance;

@@ -1,19 +1,47 @@
-﻿using Newtonsoft.Json;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="ApplicationField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PodioPCL.Models
 {
+	/// <summary>
+	/// Class ApplicationField.
+	/// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class ApplicationField
     {
+		/// <summary>
+		/// Gets or sets the field identifier.
+		/// </summary>
+		/// <value>The field identifier.</value>
         [JsonProperty("field_id", NullValueHandling = NullValueHandling.Ignore)]
         public int? FieldId { get; set; }
 
+		/// <summary>
+		/// Gets or sets the type.
+		/// </summary>
+		/// <value>The type.</value>
         [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
         public string Type { get; set; }
 
+		/// <summary>
+		/// Gets or sets the label.
+		/// </summary>
+		/// <value>The label.</value>
         public string Label {
             get { return this.InternalConfig.Label; }
             set 
@@ -23,12 +51,24 @@ namespace PodioPCL.Models
             } 
         }
 
+		/// <summary>
+		/// Gets the external identifier.
+		/// </summary>
+		/// <value>The external identifier.</value>
         [JsonProperty("external_id", NullValueHandling = NullValueHandling.Ignore)]
         public string ExternalId { get; internal set; }
 
+		/// <summary>
+		/// Gets the internal configuration.
+		/// </summary>
+		/// <value>The internal configuration.</value>
         [JsonProperty("config", NullValueHandling = NullValueHandling.Ignore)]
         public FieldConfig InternalConfig { get; internal set; }
 
+		/// <summary>
+		/// Gets the configuration.
+		/// </summary>
+		/// <value>The configuration.</value>
         public FieldConfig Config {
             get 
             {
@@ -36,10 +76,19 @@ namespace PodioPCL.Models
             }
         }
 
+		/// <summary>
+		/// Gets the status.
+		/// </summary>
+		/// <value>The status.</value>
         [JsonProperty("status", NullValueHandling = NullValueHandling.Ignore)]
         public string Status { get; internal set; }
 
 
+		/// <summary>
+		/// Gets the setting.
+		/// </summary>
+		/// <param name="key">The key.</param>
+		/// <returns>JToken.</returns>
         internal JToken GetSetting(string key)
         {
             if (this.InternalConfig.Settings != null)
@@ -50,6 +99,12 @@ namespace PodioPCL.Models
             return null;
         }
 
+		/// <summary>
+		/// Gets the settings as.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="key">The key.</param>
+		/// <returns>IEnumerable&lt;T&gt;.</returns>
         internal IEnumerable<T> GetSettingsAs<T>(string key)
         {
             var rawOptions = (JArray)this.GetSetting(key);
@@ -61,6 +116,10 @@ namespace PodioPCL.Models
             return options;
         }
 
+		/// <summary>
+		/// Initializes the field settings.
+		/// </summary>
+		/// <returns>FieldConfig.</returns>
         internal FieldConfig InitializeFieldSettings()
         {
             FieldConfig config = null;

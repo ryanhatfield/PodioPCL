@@ -5,9 +5,16 @@ using System.Linq;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ContactService.
+	/// </summary>
     public class ContactService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ContactService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public ContactService(Podio currentInstance)
         {
             _podio = currentInstance;

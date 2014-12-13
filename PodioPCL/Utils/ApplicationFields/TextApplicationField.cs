@@ -3,6 +3,9 @@ using PodioPCL.Models;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class TextApplicationField.
+	/// </summary>
     [JsonObject(MemberSerialization.OptIn)]
     public class TextApplicationField : ApplicationField
     {
