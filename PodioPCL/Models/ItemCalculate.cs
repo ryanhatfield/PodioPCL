@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Assembly         : PodioAPI
+// Assembly         : PodioPCL
 // Author           : OnsharpRyan
 // Created          : 12-09-2014
 //
