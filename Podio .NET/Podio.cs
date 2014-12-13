@@ -14,15 +14,12 @@ using System.Threading.Tasks;
 
 namespace PodioAPI
 {
-	public interface IWebProxy { }
-
 	public class Podio
 	{
 		protected string ClientId { get; set; }
 		protected string ClientSecret { get; set; }
 		public PodioOAuth OAuth { get; set; }
 		public IAuthStore AuthStore { get; set; }
-		private IWebProxy Proxy { get; set; }
 		public int RateLimit { get; private set; }
 		public int RateLimitRemaining { get; private set; }
 		protected string ApiUrl { get; set; }
@@ -36,12 +33,29 @@ namespace PodioAPI
 		/// <param name="authStore">If you need to persist the access tokens for a longer period (in your session, database or whereever), Implement PodioAPI.Utils.IAuthStore Interface and pass it in. 
 		/// <para> You can use the IsAuthenticated method to check if there is a stored access token already present</para></param>
 		/// <param name="proxy">To set proxy to HttpWebRequest</param>
-		public Podio(string clientId, string clientSecret, IAuthStore authStore = null, IWebProxy proxy = null)
+		[Obsolete("with the PCL version, the proxy property doesn't do anything currently.")]
+		public Podio(string clientId, string clientSecret, IAuthStore authStore = null, object proxy = null)
+		{
+			internalConstructor(clientId, clientSecret, authStore);
+		}
+
+		/// <summary>
+		/// Initialize the podio class with Client ID and Client Secret
+		/// <para>You can get the Client ID and Client Secret from here: https://developers.podio.com/api-key </para>
+		/// </summary>
+		/// <param name="clientId">The client identifier.</param>
+		/// <param name="clientSecret">The client secret.</param>
+		/// <param name="authStore">The authentication store.</param>
+		public Podio(string clientId, string clientSecret, IAuthStore authStore = null)
+		{
+			internalConstructor(clientId, clientSecret, authStore);
+		}
+
+		private void internalConstructor(string clientId, string clientSecret, IAuthStore authStore)
 		{
 			ClientId = clientId;
 			ClientSecret = clientSecret;
 			ApiUrl = "https://api.podio.com:443";
-			Proxy = proxy;
 
 			if (authStore != null)
 				AuthStore = authStore;
@@ -50,7 +64,6 @@ namespace PodioAPI
 
 			OAuth = AuthStore.Get();
 		}
-
 		#region Request Helpers
 
 		internal T Get<T>(string url, Dictionary<string, string> requestData = null, dynamic options = null) where T : new()
@@ -223,7 +236,7 @@ namespace PodioAPI
 			try
 			{
 				Task<WebResponse> responseTask = System.Threading.Tasks.Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, request);
-				
+
 				using (WebResponse response = await responseTask)
 				{
 					podioResponse.Status = (int)((HttpWebResponse)response).StatusCode;
