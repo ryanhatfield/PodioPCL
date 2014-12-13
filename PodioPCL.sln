@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodioPCL", "Podio .NET\PodioPCL.csproj", "{366D6850-6BCD-4829-AC92-1E9365F781B7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{46C72BFD-0C36-4CBE-8D36-368217084A24}"
 	ProjectSection(SolutionItems) = preProject
 		.nuget\NuGet.Config = .nuget\NuGet.Config
@@ -12,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{46C72B
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodioPCL.Tests", "PodioAPI.Tests\PodioPCL.Tests.csproj", "{0B35EEE7-6C0C-4F71-86FD-356BAE0109C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodioPCL", "PodioPCL\PodioPCL.csproj", "{366D6850-6BCD-4829-AC92-1E9365F781B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodioPCL.Tests", "PodioPCL.Tests\PodioPCL.Tests.csproj", "{0B35EEE7-6C0C-4F71-86FD-356BAE0109C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
