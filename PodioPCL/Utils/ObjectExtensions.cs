@@ -1,4 +1,17 @@
-﻿using Newtonsoft.Json;
+﻿// ***********************************************************************
+// Assembly         : PodioAPI
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="ObjectExtensions.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json;
 using PodioPCL.Models;
 using System;
 using System.Collections.Generic;
@@ -7,8 +20,17 @@ using System.Reflection;
 
 namespace PodioPCL.Utils
 {
+	/// <summary>
+	/// Class ObjectExtensions.
+	/// </summary>
     public static class ObjectExtensions
     {
+		/// <summary>
+		/// Ases the specified source.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="source">The source.</param>
+		/// <returns>T.</returns>
         public static T As<T>(this IDictionary<string, object> source)
             where T : class, new()
         {
@@ -16,16 +38,33 @@ namespace PodioPCL.Utils
             return (T)objectFromDict(someObject, source);
         }
 
+		/// <summary>
+		/// To the string or null.
+		/// </summary>
+		/// <param name="obj">The object.</param>
+		/// <returns>System.String.</returns>
         public static string ToStringOrNull(this object obj)
         {
             return obj == null ? null : obj.ToString();
         }
 
+		/// <summary>
+		/// Changes the type.
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="obj">The object.</param>
+		/// <returns>T.</returns>
         public static T ChangeType<T>(this object obj)
         {
             return (T)Convert.ChangeType(obj, typeof(T));
         }
 
+		/// <summary>
+		/// Objects from dictionary.
+		/// </summary>
+		/// <param name="someObject">Some object.</param>
+		/// <param name="source">The source.</param>
+		/// <returns>System.Object.</returns>
         private static object objectFromDict(object someObject, IDictionary<string, object> source)
         {
             var propertyMap = new Dictionary<string, PropertyInfo>();
@@ -94,6 +133,12 @@ namespace PodioPCL.Utils
             return someObject;
         }
 
+		/// <summary>
+		/// Gets the property information.
+		/// </summary>
+		/// <param name="type">The type.</param>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <returns>PropertyInfo.</returns>
         private static PropertyInfo GetPropertyInfo(Type type, string propertyName)
         {
             PropertyInfo propInfo = null;
@@ -106,6 +151,12 @@ namespace PodioPCL.Utils
             return propInfo;
         }
 
+		/// <summary>
+		/// Gets the property value.
+		/// </summary>
+		/// <param name="obj">The object.</param>
+		/// <param name="propertyName">Name of the property.</param>
+		/// <returns>System.Object.</returns>
         internal static object GetPropertyValue(this object obj, string propertyName)
         {
             Type objType = obj.GetType();

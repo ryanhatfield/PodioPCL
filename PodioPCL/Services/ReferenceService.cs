@@ -5,9 +5,16 @@ using PodioPCL.Models.Request;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ReferenceService.
+	/// </summary>
     public class ReferenceService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ReferenceService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public ReferenceService(Podio currentInstance)
         {
             _podio = currentInstance;

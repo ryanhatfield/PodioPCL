@@ -2,9 +2,16 @@
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class EmbedService.
+	/// </summary>
     public class EmbedService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="EmbedService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public EmbedService(Podio currentInstance)
         {
             _podio = currentInstance;

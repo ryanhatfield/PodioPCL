@@ -4,9 +4,16 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class StateApplicationField.
+	/// </summary>
     public class StateApplicationField : ApplicationField
     {
         private IEnumerable<string> _allowedValues;
+		/// <summary>
+		/// Gets or sets the allowed values.
+		/// </summary>
+		/// <value>The allowed values.</value>
         public IEnumerable<string> AllowedValues
         {
             get

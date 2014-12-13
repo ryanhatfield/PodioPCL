@@ -1,8 +1,24 @@
-﻿using Newtonsoft.Json;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-09-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="ViewCreateUpdateRequest.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace PodioPCL.Models.Request
 {
+	/// <summary>
+	/// Class ViewCreateUpdateRequest.
+	/// </summary>
     public class ViewCreateUpdateRequest
     {
         /// <summary>

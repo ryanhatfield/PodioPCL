@@ -9,9 +9,16 @@ using System.Threading.Tasks;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ItemService.
+	/// </summary>
 	public class ItemService
 	{
 		private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ItemService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
 		public ItemService(Podio currentInstance)
 		{
 			_podio = currentInstance;
@@ -258,16 +265,15 @@ namespace PodioPCL.Services
 		/// Returns the items in the Xlsx format.
 		/// <para>Podio API Reference: https://developers.podio.com/doc/items/get-items-as-xlsx-63233 </para>
 		/// </summary>
-		/// <param name="appId"></param>
+		/// <param name="appId">The application identifier.</param>
 		/// <param name="filters">The key with corresponding value to use for filtering the results</param>
 		/// <param name="limit">The maximum number of items to return Default value: 20</param>
 		/// <param name="offset">The offset from the start of the items returned</param>
 		/// <param name="deletedColumns">Wether to include deleted columns. Default value: false</param>
-		/// <param name="remember">If true the given view is remembered for the user, otherwise it is not. Default value: true</param>
 		/// <param name="sortBy">How the items should be sorted</param>
 		/// <param name="sortDesc">Use true to sort descending, use false to sort ascending Default value: true</param>
 		/// <param name="viewId">Applies the given view, if set to 0, the last used view will be used</param>
-		/// <returns></returns>
+		/// <returns>FileResponse.</returns>
 		public FileResponse GetItemsAsXlsx(int appId, Dictionary<string, string> filters, int limit = 20, int offset = 0, bool deletedColumns = false, string sortBy = null, bool sortDesc = true, int? viewId = null)
 		{
 			string url = string.Format("/item/app/{0}/xlsx/", appId);
@@ -526,8 +532,9 @@ namespace PodioPCL.Services
 		/// Returns all the revisions that have been made to an item.
 		/// <para>Podio API Reference : https://developers.podio.com/doc/items/get-item-revision-22373 </para>
 		/// </summary>
-		/// <param name="itemId"></param>
-		/// <returns></returns>
+		/// <param name="itemId">The item identifier.</param>
+		/// <param name="revision">The revision.</param>
+		/// <returns>ItemRevision.</returns>
 		public ItemRevision GetItemRevision(int itemId, int revision)
 		{
 			string url = string.Format("/item/{0}/revision/{1}", itemId, revision);
@@ -600,9 +607,9 @@ namespace PodioPCL.Services
 		/// Updates the reference on the item.
 		/// <para>Podio API Reference : https://developers.podio.com/doc/items/update-item-reference-7421495 </para>
 		/// </summary>
-		/// <param name="itemId"></param>
+		/// <param name="itemId">The item identifier.</param>
 		/// <param name="type">The type of the reference</param>
-		/// <param name="id">The id of the reference</param>
+		/// <param name="referenceId">The reference identifier.</param>
 		public void UpdateItemReference(int itemId, string type, int referenceId)
 		{
 			dynamic requestData = new
@@ -697,6 +704,13 @@ namespace PodioPCL.Services
 			return _podio.Get<List<ItemDiff>>(url);
 		}
 
+		/// <summary>
+		/// Calcualates the specified item identifier.
+		/// </summary>
+		/// <param name="itemId">The item identifier.</param>
+		/// <param name="ItemCalculateRequest">The item calculate request.</param>
+		/// <param name="limit">The limit.</param>
+		/// <returns>PodioPCL.Models.ItemCalculate.</returns>
 		public ItemCalculate Calcualate(int itemId, ItemCalculateRequest ItemCalculateRequest, int limit = 30)
 		{
 			ItemCalculateRequest.Limit = ItemCalculateRequest.Limit == 0 ? 30 : ItemCalculateRequest.Limit;

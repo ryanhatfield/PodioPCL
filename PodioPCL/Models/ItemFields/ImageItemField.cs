@@ -1,13 +1,35 @@
-﻿using Newtonsoft.Json.Linq;
-using PodioPCL.Models;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="ImageItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class ImageItemField.
+	/// </summary>
 	public class ImageItemField : ItemField
 	{
+		/// <summary>
+		/// The _images
+		/// </summary>
 		private List<FileAttachment> _images;
 
+		/// <summary>
+		/// Gets the images.
+		/// </summary>
+		/// <value>The images.</value>
 		public IEnumerable<FileAttachment> Images
 		{
 			get
@@ -16,6 +38,10 @@ namespace PodioPCL.Models.ItemFields
 			}
 		}
 
+		/// <summary>
+		/// Sets the file ids.
+		/// </summary>
+		/// <value>The file ids.</value>
 		public IEnumerable<int> FileIds
 		{
 			set
@@ -29,6 +55,10 @@ namespace PodioPCL.Models.ItemFields
 				}
 			}
 		}
+		/// <summary>
+		/// Sets the file identifier.
+		/// </summary>
+		/// <value>The file identifier.</value>
 		public int FileId
 		{
 			set

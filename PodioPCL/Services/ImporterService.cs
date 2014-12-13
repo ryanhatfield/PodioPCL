@@ -4,9 +4,16 @@ using PodioPCL.Models.Request;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ImporterService.
+	/// </summary>
     public class ImporterService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ImporterService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public ImporterService(Podio currentInstance)
         {
             _podio = currentInstance;

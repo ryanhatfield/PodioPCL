@@ -6,9 +6,16 @@ using PodioPCL.Models.Request;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class TaskService.
+	/// </summary>
 	[Obsolete("This class causes confusion with System.Threading.Tasks.Task. Start using PodioTaskService instead.")]
 	public class TaskService : PodioTaskService
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="TaskService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
 		public TaskService(Podio currentInstance)
 			: base(currentInstance)
 		{
@@ -16,9 +23,16 @@ namespace PodioPCL.Services
 		}
 	}
 
+	/// <summary>
+	/// Class PodioTaskService.
+	/// </summary>
 	public class PodioTaskService
 	{
 		private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="PodioTaskService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
 		public PodioTaskService(Podio currentInstance)
 		{
 			_podio = currentInstance;
@@ -187,7 +201,7 @@ namespace PodioPCL.Services
 		/// <param name="hook">True if hooks should be executed for the change, false otherwise. Default value: true</param>
 		/// <param name="silent">If set to true, the object will not be bumped up in the stream and notifications will not be generated. Default value: false</param>
 		/// <returns></returns>
-		public List<PodioTask> CreateTask(TaskCreateUpdateRequest task, string refType = null, int? refId = null, bool hook = true, bool silent = false)
+		public List<PodioTask> CreateTask(PodioTaskCreateUpdateRequest task, string refType = null, int? refId = null, bool hook = true, bool silent = false)
 		{
 			string url = "/task/";
 			if (!string.IsNullOrEmpty(refType) && refId != null)
@@ -225,7 +239,7 @@ namespace PodioPCL.Services
 		/// <returns></returns>
 		public List<PodioTask> CreateTask(string text, DateTime? dueDate = null, string description = null, int? responsible = null, bool isPrivate = true, string refType = null, int? refId = null, bool hook = true, bool silent = false)
 		{
-			var task = new TaskCreateUpdateRequest
+			var task = new PodioTaskCreateUpdateRequest
 			{
 				Text = text,
 				Description = description,
@@ -245,7 +259,7 @@ namespace PodioPCL.Services
 		/// <param name="hook">True if hooks should be executed for the change, false otherwise. Default value: true</param>
 		/// <param name="silent">If set to true, the object will not be bumped up in the stream and notifications will not be generated. Default value: false</param>
 		/// <returns>System.Threading.Tasks.Task&lt;Task&gt;.</returns>
-		public PodioTask UpdateTaskAsync(int taskId, TaskCreateUpdateRequest task, bool hook = true, bool silent = false)
+		public PodioTask UpdateTaskAsync(int taskId, PodioTaskCreateUpdateRequest task, bool hook = true, bool silent = false)
 		{
 			string url = string.Format("/task/{0}", taskId);
 			url = _podio.PrepareUrlWithOptions(url, new CreateUpdateOptions(silent, hook));

@@ -1,11 +1,31 @@
-﻿using System;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-13-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="DateItemField.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using System;
 using System.Linq;
 
 namespace PodioPCL.Models.ItemFields
 {
+	/// <summary>
+	/// Class DateItemField.
+	/// </summary>
     public class DateItemField : ItemField
     {
 
+		/// <summary>
+		/// Gets or sets the start.
+		/// </summary>
+		/// <value>The start.</value>
         public DateTime? Start {
             get
             {
@@ -24,6 +44,10 @@ namespace PodioPCL.Models.ItemFields
             }
         }
 
+		/// <summary>
+		/// Gets or sets the end.
+		/// </summary>
+		/// <value>The end.</value>
         public DateTime? End
         {
             get
@@ -43,6 +67,10 @@ namespace PodioPCL.Models.ItemFields
             }
         }
 
+		/// <summary>
+		/// Gets the start date.
+		/// </summary>
+		/// <value>The start date.</value>
         public DateTime? StartDate
         {
             get
@@ -58,6 +86,10 @@ namespace PodioPCL.Models.ItemFields
             }
         }
 
+		/// <summary>
+		/// Gets the end date.
+		/// </summary>
+		/// <value>The end date.</value>
         public DateTime? EndDate
         {
             get
@@ -73,6 +105,10 @@ namespace PodioPCL.Models.ItemFields
             }
         }
 
+		/// <summary>
+		/// Gets the start time.
+		/// </summary>
+		/// <value>The start time.</value>
         public string StartTime {
             get {
                 if (this.HasValue("start_time"))
@@ -86,6 +122,10 @@ namespace PodioPCL.Models.ItemFields
             }
         }
 
+		/// <summary>
+		/// Gets the end time.
+		/// </summary>
+		/// <value>The end time.</value>
         public string EndTime
         {
             get
@@ -101,6 +141,11 @@ namespace PodioPCL.Models.ItemFields
             }
         }
 
+		/// <summary>
+		/// Sets the date time.
+		/// </summary>
+		/// <param name="value">The value.</param>
+		/// <param name="attribute">The attribute.</param>
         protected void setDateTime(DateTime? value, string attribute) {
             ensureValuesInitialized(true);
             string stringValue = null;

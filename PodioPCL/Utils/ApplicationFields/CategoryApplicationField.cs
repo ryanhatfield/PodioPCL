@@ -5,6 +5,9 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class CategoryApplicationField.
+	/// </summary>
 	public class CategoryApplicationField : ApplicationField
 	{
 		IEnumerable<CategoryItemField.Option> _options;

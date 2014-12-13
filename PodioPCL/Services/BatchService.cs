@@ -3,9 +3,16 @@ using PodioPCL.Models;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class BatchService.
+	/// </summary>
     public class BatchService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="BatchService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public BatchService(Podio currentInstance)
         {
             _podio = currentInstance;

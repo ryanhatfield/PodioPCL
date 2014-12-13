@@ -2,9 +2,16 @@
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class ActionService.
+	/// </summary>
   public  class ActionService
     {
       private Podio _podio;
+	  /// <summary>
+	  /// Initializes a new instance of the <see cref="ActionService"/> class.
+	  /// </summary>
+	  /// <param name="currentInstance">The current instance.</param>
       public ActionService(Podio currentInstance)
       {
           _podio = currentInstance;

@@ -1,11 +1,27 @@
-﻿using Newtonsoft.Json;
+﻿// ***********************************************************************
+// Assembly         : PodioPCL
+// Author           : OnsharpRyan
+// Created          : 12-09-2014
+//
+// Last Modified By : OnsharpRyan
+// Last Modified On : 12-13-2014
+// ***********************************************************************
+// <copyright file="TaskCreateUpdateRequest.cs" company="Onsharp">
+//     Copyright (c) Onsharp. All rights reserved.
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
 namespace PodioPCL.Models.Request
 {
+	/// <summary>
+	/// Class PodioTaskCreateUpdateRequest.
+	/// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    public class TaskCreateUpdateRequest
+    public class PodioTaskCreateUpdateRequest
     {
         /// <summary>
         /// The text of the task
@@ -106,29 +122,37 @@ namespace PodioPCL.Models.Request
         [JsonProperty("ref_id", NullValueHandling = NullValueHandling.Ignore)]
         public int? Id { get; set; }
 
+		/// <summary>
+		/// Sets the responsible.
+		/// </summary>
+		/// <param name="userIds">The user ids.</param>
         public void SetResponsible(IEnumerable<int> userIds)
         {
             this.Responsible = userIds;
         }
 
+		/// <summary>
+		/// Sets the responsible.
+		/// </summary>
+		/// <param name="userId">The user identifier.</param>
         public void SetResponsible(int userId)
         {
             this.Responsible = userId;
         }
 
-        /// <summary>
-        /// Set a list of contact identifier objects
-        /// </summary>
-        /// <param name="reference">A list of contact identifier objects. supported contact identifier types: "user", "profile", "mail", "space", "external"</param>
+		/// <summary>
+		/// Set a list of contact identifier objects
+		/// </summary>
+		/// <param name="contactIdentifiers">The contact identifiers.</param>
         public void SetResponsible(IEnumerable<Ref> contactIdentifiers)
         {
             this.Responsible = contactIdentifiers;
         }
 
-        /// <summary>
-        /// Set a list of contact identifier objects
-        /// </summary>
-        /// <param name="reference">A contactIdentifier. supported contact identifier types: "user", "profile", "mail", "space", "external"</param>
+		/// <summary>
+		/// Set a list of contact identifier objects
+		/// </summary>
+		/// <param name="contactIdentifier">The contact identifier.</param>
         public void SetResponsible(Ref contactIdentifier)
         {
             this.Responsible = contactIdentifier;

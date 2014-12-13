@@ -4,9 +4,16 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class UserService.
+	/// </summary>
     public class UserService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UserService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public UserService(Podio currentInstance)
         {
             _podio = currentInstance;

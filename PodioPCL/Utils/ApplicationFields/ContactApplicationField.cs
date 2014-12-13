@@ -2,6 +2,9 @@
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class ContactApplicationField.
+	/// </summary>
     public class ContactApplicationField : ApplicationField
     {
         private string type;

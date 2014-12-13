@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils
 {
+	/// <summary>
+	/// Class MimeTypeMapping.
+	/// </summary>
 	public static class MimeTypeMapping
 	{
 		private static IDictionary<string, string> _mappings = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase) {
@@ -574,6 +577,12 @@ namespace PodioPCL.Utils
 
         };
 
+		/// <summary>
+		/// Gets the type of the MIME.
+		/// </summary>
+		/// <param name="extension">The extension.</param>
+		/// <returns>System.String.</returns>
+		/// <exception cref="System.ArgumentNullException">extension</exception>
 		public static string GetMimeType(string extension)
 		{
 			if (extension == null)

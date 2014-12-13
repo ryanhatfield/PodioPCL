@@ -5,9 +5,16 @@ using PodioPCL.Utils;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class NotificationService.
+	/// </summary>
     public class NotificationService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="NotificationService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public NotificationService(Podio currentInstance)
         {
             _podio = currentInstance;

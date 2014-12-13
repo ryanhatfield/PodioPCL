@@ -5,9 +5,16 @@ using PodioPCL.Utils;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class OrganizationService.
+	/// </summary>
     public class OrganizationService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OrganizationService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public OrganizationService(Podio currentInstance)
         {
             _podio = currentInstance;
@@ -299,15 +306,11 @@ namespace PodioPCL.Services
             return _podio.Get<List<SpaceMember>>(url);
         }
 
-        /// <summary>
-        /// Returns all space memberships the specified org member has in this organization. If the org admin requesting this information is not a member of any of these workspaces, sensitive information like name and url will not be exposed.
-        /// </summary>
-        /// <param name="organizationId"></param>
-        /// Returns the organizations and spaces that the logged in user shares with the specified user.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/organizations/get-shared-organizations-22411 </para>
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// Gets the shared organizations.
+		/// </summary>
+		/// <param name="userId">The user identifier.</param>
+		/// <returns>List&lt;Organization&gt;.</returns>
         public List<Organization> GetSharedOrganizations(int userId)
         {
             string url = string.Format("/org/shared/{0}", userId);

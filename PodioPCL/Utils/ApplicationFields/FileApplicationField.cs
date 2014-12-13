@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class FileApplicationField.
+	/// </summary>
     public class FileApplicationField : ApplicationField
     {
         private IEnumerable<string> _allowedMimetypes;
 
-        /// <summary>
-        /// A list of allowed mimetypes on the form "image/png" or "image/*"
-        /// </summary>
+		/// <summary>
+		/// A list of allowed mimetypes on the form "image/png" or "image/*"
+		/// </summary>
+		/// <value>The allowed mimetypes.</value>
         public IEnumerable<string> AllowedMimetypes
         {
             get

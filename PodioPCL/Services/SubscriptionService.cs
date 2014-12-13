@@ -2,9 +2,16 @@
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class SubscriptionService.
+	/// </summary>
     public class SubscriptionService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="SubscriptionService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public SubscriptionService(Podio currentInstance)
         {
             _podio = currentInstance;

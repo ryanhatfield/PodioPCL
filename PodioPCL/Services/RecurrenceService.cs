@@ -2,9 +2,16 @@
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class RecurrenceService.
+	/// </summary>
     public class RecurrenceService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="RecurrenceService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public RecurrenceService(Podio currentInstance)
         {
             _podio = currentInstance;

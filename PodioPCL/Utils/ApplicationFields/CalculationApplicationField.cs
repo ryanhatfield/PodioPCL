@@ -5,9 +5,16 @@ using System.Linq;
 
 namespace PodioPCL.Utils.ApplicationFields
 {
+	/// <summary>
+	/// Class CalculationApplicationField.
+	/// </summary>
     public class CalculationApplicationField : ApplicationField
     {
         private CalculationExpression _calculationExpression;
+		/// <summary>
+		/// Gets or sets the expression.
+		/// </summary>
+		/// <value>The expression.</value>
         public CalculationExpression Expression
         {
             get
@@ -70,6 +77,9 @@ namespace PodioPCL.Utils.ApplicationFields
         }
     }
 
+	/// <summary>
+	/// Class CalculationExpression.
+	/// </summary>
     public class CalculationExpression
     {
         /// <summary>

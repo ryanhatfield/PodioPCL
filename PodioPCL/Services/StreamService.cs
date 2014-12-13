@@ -4,9 +4,16 @@ using PodioPCL.Utils;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class StreamService.
+	/// </summary>
     public class StreamService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="StreamService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public StreamService(Podio currentInstance)
         {
             _podio = currentInstance;

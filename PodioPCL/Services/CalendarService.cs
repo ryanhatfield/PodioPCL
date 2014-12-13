@@ -4,9 +4,16 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class CalendarService.
+	/// </summary>
     public class CalendarService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CalendarService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public CalendarService(Podio currentInstance)
         {
             _podio = currentInstance;
@@ -130,14 +137,12 @@ namespace PodioPCL.Services
             return _podio.Get<dynamic>(url: url, options: options);
         }
 
-        /// <summary>
-        /// Returns the calendar for the given task in the iCal format.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/calendar/get-task-calendar-as-ical-10195650 </para>
-        /// </summary>
-        /// <param name="taskId"></param>
-        /// <param name="userId"></param>
-        /// <param name="token"></param>
-        /// <returns></returns>
+		/// <summary>
+		/// Returns the calendar for the given task in the iCal format.
+		/// <para>Podio API Reference: https://developers.podio.com/doc/calendar/get-task-calendar-as-ical-10195650 </para>
+		/// </summary>
+		/// <param name="taskId">The task identifier.</param>
+		/// <returns>System.String.</returns>
         public string GetTaskCalendarAsiCal(int taskId)
         {
             string url = string.Format("/calendar/task/{0}/ics/", taskId);
@@ -208,12 +213,12 @@ namespace PodioPCL.Services
         }
 
 
-        /// Update the calendar event with the given UID with a new start and end time. All dates and times should be given in the users local timezone.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/calendar/update-calendar-event-78177950 </para>
-        /// </summary>
-        /// <param name="uid"></param>
-        /// <param name="startDateTime"></param>
-        /// <param name="endDateTime"></param>
+		/// <summary>
+		/// Updates the calendar event.
+		/// </summary>
+		/// <param name="uid">The uid.</param>
+		/// <param name="startDateTime">The start date time.</param>
+		/// <param name="endDateTime">The end date time.</param>
         public void UpdateCalendarEvent(int uid, DateTime startDateTime, DateTime endDateTime)
         {
             string url = string.Format("/calendar/event/{0}", uid);

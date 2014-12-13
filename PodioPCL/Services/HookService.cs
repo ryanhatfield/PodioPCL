@@ -3,9 +3,16 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Services
 {
+	/// <summary>
+	/// Class HookService.
+	/// </summary>
     public class HookService
     {
         private Podio _podio;
+		/// <summary>
+		/// Initializes a new instance of the <see cref="HookService"/> class.
+		/// </summary>
+		/// <param name="currentInstance">The current instance.</param>
         public HookService(Podio currentInstance)
         {
             _podio = currentInstance;
@@ -67,11 +74,12 @@ namespace PodioPCL.Services
             _podio.Post<dynamic>(url);
         }
 
-        /// <summary>
-        /// Validates the hook using the code received from the verify call. On successful validation the hook will become active.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/hooks/validate-hook-verification-215241 </para>
-        /// </summary>
-        /// <param name="hookId"></param>
+		/// <summary>
+		/// Validates the hook using the code received from the verify call. On successful validation the hook will become active.
+		/// <para>Podio API Reference: https://developers.podio.com/doc/hooks/validate-hook-verification-215241 </para>
+		/// </summary>
+		/// <param name="hookId">The hook identifier.</param>
+		/// <param name="code">The code.</param>
         public void ValidateHookVerification(int hookId, string code)
         {
             string url = string.Format("/hook/{0}/verify/validate", hookId);
