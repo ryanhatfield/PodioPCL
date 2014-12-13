@@ -1,38 +1,34 @@
 ﻿using Newtonsoft.Json.Linq;
-using PodioPCL.Models;
 using System.Collections.Generic;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
-    public class ContactItemField : ItemField
+	public class VideoItemField: ItemField
     {
-        private List<Contact> _contacts;
+        private List<FileAttachment> _videos;
 
-        public IEnumerable<Contact> Contacts
+        public IEnumerable<FileAttachment> Videos
         {
             get
             {
-                 return this.valuesAs<Contact>(_contacts);
+                return this.valuesAs<FileAttachment>(_videos);
             }
         }
 
-        /// <summary>
-        /// The profile_id's of the contacts
-        /// </summary>
-        public IEnumerable<int> ContactIds
+        public IEnumerable<int> FileIds
         {
             set
             {
                 ensureValuesInitialized();
-                foreach (var contactId in value)
+                foreach (var fileId in value)
                 {
                     var jobject = new JObject();
-                    jobject["value"] = contactId;
+                    jobject["value"] = fileId;
                     this.Values.Add(jobject);
                 }
             }
         }
-        public int  ContactId
+        public int  FileId
         {
             set
             {
@@ -44,6 +40,5 @@ namespace PodioPCL.Utils.ItemFields
                 
             }
         }
-      
     }
 }

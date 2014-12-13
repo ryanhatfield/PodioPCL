@@ -1,7 +1,6 @@
-﻿using PodioPCL.Models;
-using System.Linq;
+﻿using System.Linq;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
     public class StateItemField : ItemField
     {

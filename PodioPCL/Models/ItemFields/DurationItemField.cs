@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Linq;
-using PodioPCL.Models;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
     public class DurationItemField : ItemField
     {

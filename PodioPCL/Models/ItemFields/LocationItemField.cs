@@ -1,40 +1,43 @@
 ﻿using Newtonsoft.Json.Linq;
-using PodioPCL.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
-    public class ImageItemField : ItemField
+    public class LocationItemField : ItemField
     {
-        private List<FileAttachment> _images;
-
-        public IEnumerable<FileAttachment> Images
+        public IEnumerable<string> Locations
         {
             get
             {
-                return this.valuesAs<FileAttachment>(_images);
+                if (this.Values != null && this.Values.Any())
+                    return new List<string>(this.Values.Select(s => (string)s["value"]));
+                else
+                    return new List<String>();
             }
-        }
 
-        public IEnumerable<int> FileIds
-        {
             set
             {
                 ensureValuesInitialized();
-                foreach (var fileId in value)
+                foreach (var location in value)
                 {
                     var jobject = new JObject();
-                    jobject["value"] = fileId;
+                    jobject["value"] = location;
                     this.Values.Add(jobject);
                 }
             }
+
+
         }
-        public int  FileId
+        public string Location
         {
+          
+
             set
             {
                 ensureValuesInitialized();
-                
+               
                     var jobject = new JObject();
                     jobject["value"] = value;
                     this.Values.Add(jobject);

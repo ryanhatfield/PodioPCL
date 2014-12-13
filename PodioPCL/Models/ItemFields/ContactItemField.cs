@@ -2,42 +2,48 @@
 using PodioPCL.Models;
 using System.Collections.Generic;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
-    public class AppItemField : ItemField
+    public class ContactItemField : ItemField
     {
-        private List<Item> _items;
+        private List<Contact> _contacts;
 
-        public IEnumerable<Item> Items
+        public IEnumerable<Contact> Contacts
         {
             get
             {
-                return this.valuesAs<Item>(_items);
+                 return this.valuesAs<Contact>(_contacts);
             }
         }
 
-        public IEnumerable<int> ItemIds {
-            set {
-                ensureValuesInitialized();
-                foreach (var itemId in value)
-	            {
-                    var jobject = new JObject();
-                    jobject["value"] = itemId;
-                    this.Values.Add(jobject);
-	            }
-            }
-        }
-        public int  ItemId
+        /// <summary>
+        /// The profile_id's of the contacts
+        /// </summary>
+        public IEnumerable<int> ContactIds
         {
             set
             {
                 ensureValuesInitialized();
-               
+                foreach (var contactId in value)
+                {
+                    var jobject = new JObject();
+                    jobject["value"] = contactId;
+                    this.Values.Add(jobject);
+                }
+            }
+        }
+        public int  ContactId
+        {
+            set
+            {
+                ensureValuesInitialized();
+                
                     var jobject = new JObject();
                     jobject["value"] = value;
                     this.Values.Add(jobject);
                 
             }
         }
+      
     }
 }

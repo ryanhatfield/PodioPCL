@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PodioPCL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json;
-using PodioPCL.Models;
 
 namespace PodioPCL.Utils
 {
@@ -25,15 +25,6 @@ namespace PodioPCL.Utils
         {
             return (T)Convert.ChangeType(obj, typeof(T));
         }
-
-		//public static IDictionary<string, object> AsDictionary(this object source, BindingFlags bindingAttr = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance)
-		//{
-		//	return source.GetType().GetProperties(bindingAttr).ToDictionary
-		//	(
-		//		propInfo => propInfo.Name,
-		//		propInfo => propInfo.GetValue(source, null)
-		//	);
-		//}
 
         private static object objectFromDict(object someObject, IDictionary<string, object> source)
         {

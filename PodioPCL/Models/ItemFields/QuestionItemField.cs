@@ -1,5 +1,4 @@
-﻿
-namespace PodioPCL.Utils.ItemFields
+﻿namespace PodioPCL.Models.ItemFields
 {
     public class QuestionItemField : CategoryItemField
     {
