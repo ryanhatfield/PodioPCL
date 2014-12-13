@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using PodioPCL.Models;
-using PodioPCL.Utils.ItemFields;
+using PodioPCL.Models.ItemFields;
 using System;
 
 namespace PodioPCL.Utils.Serialization

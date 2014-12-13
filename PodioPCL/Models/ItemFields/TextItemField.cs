@@ -1,22 +1,17 @@
-﻿using PodioPCL.Models;
-using System.Linq;
+﻿using System.Linq;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
-    public class NumericItemField : ItemField
+    public class TextItemField : ItemField
     {
-        public double? Value
+        public string Value
         {
             get
             {
                 if (this.HasValue("value"))
-                {
-                    return (double)this.Values.First()["value"];
-                }
+                    return (string)this.Values.First()["value"];
                 else
-                {
                     return null;
-                }
             }
 
             set

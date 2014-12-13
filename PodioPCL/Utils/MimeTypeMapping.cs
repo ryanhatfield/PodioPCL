@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace PodioPCL.Utils
 {
-    public static class MimeTypeMapping
-    {
-        private static IDictionary<string, string> _mappings = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase) {
+	public static class MimeTypeMapping
+	{
+		private static IDictionary<string, string> _mappings = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase) {
 
         #region Big freaking list of mime types
         // combination of values from Windows 7 Registry and 
@@ -574,20 +574,20 @@ namespace PodioPCL.Utils
 
         };
 
-        public static string GetMimeType(string extension)
-        {
-            if (extension == null)
-            {
-                throw new ArgumentNullException("extension");
-            }
+		public static string GetMimeType(string extension)
+		{
+			if (extension == null)
+			{
+				throw new ArgumentNullException("extension");
+			}
 
-            if (!extension.StartsWith("."))
-            {
-                extension = "." + extension;
-            }
+			if (!extension.StartsWith("."))
+			{
+				extension = "." + extension;
+			}
 
-            string mime;
-            return _mappings.TryGetValue(extension, out mime) ? mime : "application/octet-stream";
-        }
-    }
+			string mime;
+			return _mappings.TryGetValue(extension, out mime) ? mime : "application/octet-stream";
+		}
+	}
 }

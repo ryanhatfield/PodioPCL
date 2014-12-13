@@ -1,10 +1,9 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using PodioPCL.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
     public class CategoryItemField : ItemField
     {

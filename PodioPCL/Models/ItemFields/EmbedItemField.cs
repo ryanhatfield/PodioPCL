@@ -1,8 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
-using PodioPCL.Models;
 using System.Collections.Generic;
 
-namespace PodioPCL.Utils.ItemFields
+namespace PodioPCL.Models.ItemFields
 {
     public class EmbedItemField : ItemField
     {
