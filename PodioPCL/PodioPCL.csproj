@@ -138,7 +138,7 @@
     <Compile Include="Models\Reference.cs" />
     <Compile Include="Models\Reminder.cs" />
     <Compile Include="Models\Request\SearchReferencesRequest.cs" />
-    <Compile Include="Models\Request\TaskCreateUpdateRequest.cs" />
+    <Compile Include="Models\Request\PodioTaskCreateUpdateRequest.cs" />
     <Compile Include="Models\Request\ViewCreateUpdateRequest.cs" />
     <Compile Include="Models\RowPreview.cs" />
     <Compile Include="Models\SearchResult.cs" />

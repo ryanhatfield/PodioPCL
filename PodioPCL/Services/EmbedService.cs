@@ -32,7 +32,7 @@ namespace PodioPCL.Services
                 url = embedUrl,
                 mode = mode
             };
-           return _podio.Post<Embed>(url, requestData);
+           return _podio.PostAsync<Embed>(url, requestData);
         }
     }
 }
