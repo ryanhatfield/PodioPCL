@@ -14,6 +14,7 @@
 using PodioPCL.Models;
 using PodioPCL.Models.Request;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PodioPCL.Services
 {
@@ -42,10 +43,10 @@ namespace PodioPCL.Services
 		/// <param name="appId">The application identifier.</param>
 		/// <param name="request">The request.</param>
 		/// <returns>System.Int32.</returns>
-        public int CreateView(int appId, ViewCreateUpdateRequest request)
+		public async Task<int> CreateView(int appId, ViewCreateUpdateRequest request)
         {
             string url = string.Format("/view/app/{0}/", appId);
-            dynamic response = _podio.Post<dynamic>(url, request);
+            dynamic response = await _podio.PostAsync<dynamic>(url, request);
             return (int)response["view_id"];
         }
 
@@ -56,10 +57,10 @@ namespace PodioPCL.Services
 		/// <param name="appId">The application identifier.</param>
 		/// <param name="viewIdOrName">Name of the view identifier or.</param>
 		/// <returns>View.</returns>
-        public View GetView(int appId, string viewIdOrName)
+		public async Task<View> GetView(int appId, string viewIdOrName)
         {
             string url = string.Format("/view/app/{0}/{1}", appId, viewIdOrName);
-            return _podio.Get<View>(url);
+            return await _podio.GetAsync<View>(url);
         }
 
 		/// <summary>
@@ -69,14 +70,14 @@ namespace PodioPCL.Services
 		/// <param name="appId">The application identifier.</param>
 		/// <param name="includeStandardViews">True if standard views should be included, false otherwise. Default value: false</param>
 		/// <returns>List&lt;View&gt;.</returns>
-        public List<View> GetViews(int appId, bool includeStandardViews = false)
+		public async Task<List<View>> GetViews(int appId, bool includeStandardViews = false)
         {
             string url = string.Format("/view/app/{0}/", appId);
             var requestData = new Dictionary<string, string>()
             {
                 {"include_standard_views",includeStandardViews.ToString()}
             };
-            return _podio.Get<List<View>>(url, requestData);
+            return await _podio.GetAsync<List<View>>(url, requestData);
         }
 
 		/// <summary>
@@ -84,10 +85,11 @@ namespace PodioPCL.Services
 		/// <para>Podio API Reference: https://developers.podio.com/doc/views/delete-view-27454 </para>
 		/// </summary>
 		/// <param name="viewId">The view identifier.</param>
-        public void DeleteView(int viewId)
+		/// <returns>Task.</returns>
+		public async Task DeleteView(int viewId)
         {
             string url = string.Format("/view/{0}", viewId);
-            _podio.Delete<dynamic>(url);
+            await _podio.DeleteAsync<dynamic>(url);
         }
 
 		/// <summary>
@@ -96,10 +98,11 @@ namespace PodioPCL.Services
 		/// </summary>
 		/// <param name="appId">The application identifier.</param>
 		/// <param name="request">The request.</param>
-        public void UpdateLastView(int appId, ViewCreateUpdateRequest request)
+		/// <returns>Task.</returns>
+		public async Task UpdateLastView(int appId, ViewCreateUpdateRequest request)
         {
             string url = string.Format("/view/app/{0}/last", appId);
-            _podio.Put<dynamic>(url, request);
+            await _podio.PutAsync<dynamic>(url, request);
         }
 
 		/// <summary>
@@ -108,10 +111,11 @@ namespace PodioPCL.Services
 		/// </summary>
 		/// <param name="viewId">The view identifier.</param>
 		/// <param name="request">The request.</param>
-        public void UpdateView(int viewId, ViewCreateUpdateRequest request)
+		/// <returns>Task.</returns>
+		public async Task UpdateView(int viewId, ViewCreateUpdateRequest request)
         {
             string url = string.Format("/view/{0}", viewId);
-            _podio.Put<dynamic>(url, request);
+            await _podio.PutAsync<dynamic>(url, request);
         }
     }
 }

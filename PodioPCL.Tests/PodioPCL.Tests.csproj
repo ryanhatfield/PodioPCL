@@ -53,6 +53,12 @@
     <Compile Include="PodioAuthenticationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PodioPCL\PodioPCL.csproj">
+      <Project>{366d6850-6bcd-4829-ac92-1e9365f781b7}</Project>
+      <Name>PodioPCL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -1,8 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PodioPCL.Utils;
-using PodioPCL.Models;
 using PodioPCL.Utils.Authentication;
+using System.Threading.Tasks;
 
 namespace PodioPCL.Tests
 {
@@ -10,18 +9,18 @@ namespace PodioPCL.Tests
 	public class PodioAuthenticationTests
 	{
 		[TestMethod]
-		public void TestMethod1()
+		public async Task TestMethod1()
 		{
 			Podio _Podio;
 			StaticAuthStore _AuthStore;
 
 			_AuthStore = new StaticAuthStore();
 			_Podio = new Podio(Settings.ClientId, Settings.ClientSecret, _AuthStore);
-			_Podio.AuthenticateWithApp(Settings.AppId, Settings.AppToken);
+			await _Podio.AuthenticateWithApp(Settings.AppId, Settings.AppToken);
 
-			var moments = _Podio.ItemService.FilterItems(Settings.AppId);
+			var items = await _Podio.ItemService.FilterItems(Settings.AppId);
 
-			Assert.IsNotNull(moments);
+			Assert.IsNotNull(items);
 		}
 
 
@@ -32,7 +31,6 @@ namespace PodioPCL.Tests
 
 			public static readonly int AppId = 0;
 			public static readonly string AppToken = "";
-
 		}
 	}
 }

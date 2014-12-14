@@ -1,5 +1,5 @@
 ﻿// ***********************************************************************
-// Assembly         : PodioPCL
+// Assembly         : PodioAPI
 // Author           : OnsharpRyan
 // Created          : 12-13-2014
 //
@@ -103,21 +103,6 @@ namespace PodioPCL
 		#region Request Helpers
 
 		/// <summary>
-		/// Gets the specified URL.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="url">The URL.</param>
-		/// <param name="requestData">The request data.</param>
-		/// <param name="options">The options.</param>
-		/// <returns>T.</returns>
-		internal T Get<T>(string url, Dictionary<string, string> requestData = null, dynamic options = null) where T : new()
-		{
-			Task<T> getTask = GetAsync<T>(url, requestData, options);
-			getTask.Wait();
-			return getTask.Result;
-		}
-
-		/// <summary>
 		/// get as an asynchronous operation.
 		/// </summary>
 		/// <typeparam name="T"></typeparam>
@@ -125,24 +110,9 @@ namespace PodioPCL
 		/// <param name="requestData">The request data.</param>
 		/// <param name="options">The options.</param>
 		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
-		internal async System.Threading.Tasks.Task<T> GetAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		internal Task<T> GetAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return await Request<T>(RequestMethod.GET, url, requestData, options);
-		}
-
-		/// <summary>
-		/// Posts the specified URL.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="url">The URL.</param>
-		/// <param name="requestData">The request data.</param>
-		/// <param name="options">The options.</param>
-		/// <returns>T.</returns>
-		internal T Post<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
-		{
-			Task<T> postTask = Request<T>(RequestMethod.POST, url, requestData, options);
-			postTask.Wait();
-			return postTask.Result;
+			return RequestAsync<T>(RequestMethod.GET, url, requestData, options);
 		}
 
 		/// <summary>
@@ -153,24 +123,9 @@ namespace PodioPCL
 		/// <param name="requestData">The request data.</param>
 		/// <param name="options">The options.</param>
 		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
-		internal async System.Threading.Tasks.Task<T> PostAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		internal Task<T> PostAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return await Request<T>(RequestMethod.POST, url, requestData, options);
-		}
-
-		/// <summary>
-		/// Puts the specified URL.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="url">The URL.</param>
-		/// <param name="requestData">The request data.</param>
-		/// <param name="options">The options.</param>
-		/// <returns>T.</returns>
-		internal T Put<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
-		{
-			Task<T> putTask = PutAsync<T>(url, requestData, options);
-			putTask.Wait();
-			return putTask.Result;
+			return RequestAsync<T>(RequestMethod.POST, url, requestData, options);
 		}
 
 		/// <summary>
@@ -181,24 +136,9 @@ namespace PodioPCL
 		/// <param name="requestData">The request data.</param>
 		/// <param name="options">The options.</param>
 		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
-		internal async System.Threading.Tasks.Task<T> PutAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		internal Task<T> PutAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return await Request<T>(RequestMethod.PUT, url, requestData);
-		}
-
-		/// <summary>
-		/// Deletes the specified URL.
-		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="url">The URL.</param>
-		/// <param name="requestData">The request data.</param>
-		/// <param name="options">The options.</param>
-		/// <returns>T.</returns>
-		internal T Delete<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
-		{
-			Task<T> deleteTask = DeleteAsync<T>(url, requestData, options);
-			deleteTask.Wait();
-			return deleteTask.Result;
+			return RequestAsync<T>(RequestMethod.PUT, url, requestData);
 		}
 
 		/// <summary>
@@ -209,9 +149,9 @@ namespace PodioPCL
 		/// <param name="requestData">The request data.</param>
 		/// <param name="options">The options.</param>
 		/// <returns>System.Threading.Tasks.Task&lt;T&gt;.</returns>
-		internal async System.Threading.Tasks.Task<T> DeleteAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
+		internal Task<T> DeleteAsync<T>(string url, dynamic requestData = null, dynamic options = null) where T : new()
 		{
-			return await Request<T>(RequestMethod.DELETE, url, requestData);
+			return RequestAsync<T>(RequestMethod.DELETE, url, requestData);
 		}
 
 		/// <summary>
@@ -235,7 +175,7 @@ namespace PodioPCL
 		/// <exception cref="PodioServerException"></exception>
 		/// <exception cref="PodioUnavailableException"></exception>
 		/// <exception cref="PodioException"></exception>
-		private async System.Threading.Tasks.Task<T> Request<T>(RequestMethod requestMethod, string url, dynamic requestData, dynamic options = null) where T : new()
+		private async Task<T> RequestAsync<T>(RequestMethod requestMethod, string url, dynamic requestData, dynamic options = null) where T : new()
 		{
 			Dictionary<string, string> requestHeaders = new Dictionary<string, string>();
 			var data = new List<string>();
@@ -320,10 +260,7 @@ namespace PodioPCL
 				requestHeaders["Accept"] = "application/json";
 
 			var request = (HttpWebRequest)WebRequest.Create(url);
-			//ServicePointManager.Expect100Continue = false;
-			//request.Proxy = this.Proxy;
 			request.Method = httpMethod;
-			//request.UserAgent = "Podio Dotnet Client";
 
 			PodioResponse podioResponse = new PodioResponse();
 			var responseHeaders = new Dictionary<string, string>(StringComparer.CurrentCultureIgnoreCase);
@@ -335,8 +272,6 @@ namespace PodioPCL
 					request.Accept = requestHeaders["Accept"];
 				if (requestHeaders.ContainsKey("Content-type"))
 					request.ContentType = requestHeaders["Content-type"];
-				//if (requestHeaders.ContainsKey("Content-length"))
-				//	request.ContentLength = int.Parse(requestHeaders["Content-length"]);
 				if (requestHeaders.ContainsKey("Authorization"))
 					request.Headers["Authorization"] = requestHeaders["Authorization"];
 			}
@@ -344,10 +279,9 @@ namespace PodioPCL
 			{
 				foreach (string item in data)
 				{
-					//if (item == "file")
-					//	AddFileToRequestStream(requestData.filePath, requestData.fileName, request);
-					//else
-					if (item == "oauth")
+					if (item == "file")
+						await AddFileToRequestStream(requestData.filePath, requestData.fileName, requestData.mimeType, request);
+					else if (item == "oauth")
 						WriteToRequestStream(EncodeAttributes(requestData), request);
 					else
 						WriteToRequestStream(requestData, request);
@@ -450,9 +384,9 @@ namespace PodioPCL
 						if (!string.IsNullOrEmpty(OAuth.RefreshToken))
 						{
 							//Refresh access token
-							var authInfo = RefreshAccessToken();
+							var authInfo = await RefreshAccessTokenAsync();
 							if (authInfo != null && !string.IsNullOrEmpty(authInfo.AccessToken))
-								responseObject = Request<T>(requestMethod, originalUrl, requestData, options);
+								responseObject = await RequestAsync<T>(requestMethod, originalUrl, requestData, options);
 						}
 						else
 						{
@@ -509,16 +443,15 @@ namespace PodioPCL
 		/// </summary>
 		/// <param name="obj">The object.</param>
 		/// <param name="request">HttpWebRequest object of which request to write</param>
-		internal void WriteToRequestStream(object obj, HttpWebRequest request)
+		internal async Task WriteToRequestStream(object obj, HttpWebRequest request)
 		{
 			if (obj != null)
 			{
 				try
 				{
-					Task<Stream> requestTask = System.Threading.Tasks.Task.Factory.FromAsync<Stream>(request.BeginGetRequestStream, request.EndGetRequestStream, request);
-					requestTask.Wait();
+					Stream requestStream = await Task.Factory.FromAsync<Stream>(request.BeginGetRequestStream, request.EndGetRequestStream, request);
 
-					using (var streamWriter = new StreamWriter(requestTask.Result))
+					using (var streamWriter = new StreamWriter(requestStream))
 					{
 						if (obj is string)
 							streamWriter.Write(obj);
@@ -568,11 +501,10 @@ namespace PodioPCL
 		/// <param name="mimeType">Type of the MIME.</param>
 		/// <param name="request">HttpWebRequest object of which request stream file is added to</param>
 		/// <exception cref="System.IO.FileNotFoundException">File not found in the specified path</exception>
-		private void AddFileToRequestStream(byte[] file, string fileName, string mimeType, HttpWebRequest request)
+		private async Task AddFileToRequestStream(byte[] file, string fileName, string mimeType, HttpWebRequest request)
 		{
 			byte[] inputData;
 			string contentType = "";
-			//request.ServicePoint.Expect100Continue = false;
 			if (file != null && file.Length > 0)
 			{
 				string boundary = String.Format("----------{0:N}", Guid.NewGuid());
@@ -611,11 +543,10 @@ namespace PodioPCL
 			}
 
 			request.ContentType = contentType;
-			//request.ContentLength = inputData.Length;
 
-			Task<Stream> requestTask = System.Threading.Tasks.Task.Factory.FromAsync<Stream>(request.BeginGetRequestStream, request.EndGetRequestStream, request);
-			requestTask.Wait();
-			using (var requestStream = requestTask.Result)
+			var result = await Task.Factory.FromAsync<Stream>(request.BeginGetRequestStream, request.EndGetRequestStream, request);
+
+			using (var requestStream = result)
 			{
 				requestStream.Write(inputData, 0, inputData.Length);
 			}
@@ -633,14 +564,14 @@ namespace PodioPCL
 		/// <param name="appId">AppId</param>
 		/// <param name="appToken">AppToken</param>
 		/// <returns>PodioOAuth object with OAuth data</returns>
-		public PodioOAuth AuthenticateWithApp(int appId, string appToken)
+		public Task<PodioOAuth> AuthenticateWithApp(int appId, string appToken)
 		{
 			var authRequest = new Dictionary<string, string>(){
                    {"app_id", appId.ToString()},
                    {"app_token", appToken},
                    {"grant_type", "app"}
                 };
-			return Authenticate("app", authRequest);
+			return AuthenticateAsync("app", authRequest);
 		}
 
 		/// <summary>
@@ -650,14 +581,14 @@ namespace PodioPCL
 		/// <param name="username">The username.</param>
 		/// <param name="password">The password.</param>
 		/// <returns>PodioOAuth object with OAuth data</returns>
-		public PodioOAuth AuthenticateWithPassword(string username, string password)
+		public Task<PodioOAuth> AuthenticateWithPassword(string username, string password)
 		{
 			var authRequest = new Dictionary<string, string>(){
                    {"username", username},
                    {"password", password},
                    {"grant_type", "password"}
                 };
-			return Authenticate("password", authRequest);
+			return AuthenticateAsync("password", authRequest);
 		}
 
 		/// <summary>
@@ -668,14 +599,14 @@ namespace PodioPCL
 		/// <param name="redirectUri">The redirect URI.</param>
 		/// <returns>PodioOAuth object with OAuth data</returns>
 
-		public PodioOAuth AuthenticateWithAuthorizationCode(string authorizationCode, string redirectUri)
+		public Task<PodioOAuth> AuthenticateWithAuthorizationCode(string authorizationCode, string redirectUri)
 		{
 			var authRequest = new Dictionary<string, string>(){
                    {"code", authorizationCode},
                    {"redirect_uri", redirectUri},
                    {"grant_type", "authorization_code"}
                 };
-			return Authenticate("authorization_code", authRequest);
+			return AuthenticateAsync("authorization_code", authRequest);
 		}
 
 		/// <summary>
@@ -683,13 +614,13 @@ namespace PodioPCL
 		/// <para>When the access token expires, you can use this method to refresh your access, and gain another access_token</para><para>Podio API Reference: https://developers.podio.com/authentication </para>
 		/// </summary>
 		/// <returns>PodioOAuth object with OAuth data</returns>
-		public PodioOAuth RefreshAccessToken()
+		public Task<PodioOAuth> RefreshAccessTokenAsync()
 		{
 			var authRequest = new Dictionary<string, string>(){
                    {"refresh_token", OAuth.RefreshToken},
                    {"grant_type", "refresh_token"}
                 };
-			return Authenticate("refresh_token", authRequest);
+			return AuthenticateAsync("refresh_token", authRequest);
 		}
 
 		/// <summary>
@@ -698,7 +629,7 @@ namespace PodioPCL
 		/// <param name="grantType">Type of the grant.</param>
 		/// <param name="attributes">The attributes.</param>
 		/// <returns>PodioOAuth.</returns>
-		private PodioOAuth Authenticate(string grantType, Dictionary<string, string> attributes)
+		private async Task<PodioOAuth> AuthenticateAsync(string grantType, Dictionary<string, string> attributes)
 		{
 			attributes["client_id"] = ClientId;
 			attributes["client_secret"] = ClientSecret;
@@ -707,7 +638,7 @@ namespace PodioPCL
                 {"oauth_request",true}
             };
 
-			PodioOAuth podioOAuth = Post<PodioOAuth>("/oauth/token", attributes, options);
+			PodioOAuth podioOAuth = await PostAsync<PodioOAuth>("/oauth/token", attributes, options);
 			this.OAuth = podioOAuth;
 			AuthStore.Set(podioOAuth);
 

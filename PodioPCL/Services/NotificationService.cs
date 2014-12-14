@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using PodioPCL.Utils;
+using System.Threading.Tasks;
 
 namespace PodioPCL.Services
 {
@@ -25,10 +26,10 @@ namespace PodioPCL.Services
         /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/get-inbox-new-count-84610 </para>
         /// </summary>
         /// <returns></returns>
-        public int GetInboxNewCount()
+        public async Task<int> GetInboxNewCount()
         {
             string url = "/notification/inbox/new/count";
-            dynamic response = _podio.Get<dynamic>(url);
+            dynamic response = await _podio.GetAsync<dynamic>(url);
             return (int)response["new"];
         }
 
@@ -37,10 +38,10 @@ namespace PodioPCL.Services
         /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/star-notification-295910 </para>
         /// </summary>
         /// <param name="notificationId"></param>
-        public void StarNotification(int notificationId)
+        public Task StarNotification(int notificationId)
         {
             string url = string.Format("/notification/{0}/star", notificationId);
-            _podio.Post<dynamic>(url);
+            return _podio.PostAsync<dynamic>(url);
         }
 
         /// <summary>
@@ -48,10 +49,10 @@ namespace PodioPCL.Services
         /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/un-star-notification-295911 </para>
         /// </summary>
         /// <param name="notificationId"></param>
-        public void UnStarNotification(int notificationId)
+        public Task UnStarNotification(int notificationId)
         {
             string url = string.Format("/notification/{0}/star", notificationId);
-            _podio.Delete<dynamic>(url);
+            return _podio.DeleteAsync<dynamic>(url);
         }
 
         /// <summary>
@@ -60,10 +61,10 @@ namespace PodioPCL.Services
         /// </summary>
         /// <param name="refType"></param>
         /// <param name="refId"></param>
-        public void MarkNotificationsAsViewedByRef(string refType, int refId)
+        public Task MarkNotificationsAsViewedByRef(string refType, int refId)
         {
             string url = string.Format("/notification/{0}/{1}/viewed", refType, refId);
-            _podio.Post<dynamic>(url);
+            return _podio.PostAsync<dynamic>(url);
         }
 
         /// <summary>
@@ -71,51 +72,51 @@ namespace PodioPCL.Services
         /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/mark-notification-as-viewed-22436 </para>
         /// </summary>
         /// <param name="notificationId"></param>
-        public void MarkNotificationAsViewed(int notificationId)
+        public Task MarkNotificationAsViewed(int notificationId)
         {
             string url = string.Format("/notification/{0}/viewed", notificationId);
-            _podio.Post<dynamic>(url);
+            return _podio.PostAsync<dynamic>(url);
         }
 
         /// <summary>
         /// Marks all the users notifications as viewed.
         /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/mark-all-notifications-as-viewed-58099 </para>
         /// </summary>
-        public void MarkAllNotificationsAsViewed()
+        public Task MarkAllNotificationsAsViewed()
         {
             string url = "/notification/viewed";
-            _podio.Post<dynamic>(url);
+            return _podio.PostAsync<dynamic>(url);
         }
 
-        /// <summary>
-        /// Retrieves a single notification grouped similarly to the get notifications operation.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/get-notification-2973737 </para>
-        /// </summary>
-        /// <param name="notificationId"></param>
-        /// <returns></returns>
-        public Notifications GetNotification(int notificationId)
+		/// <summary>
+		/// Retrieves a single notification grouped similarly to the get notifications operation.
+		/// <para>Podio API Reference: https://developers.podio.com/doc/notifications/get-notification-2973737 </para>
+		/// </summary>
+		/// <param name="notificationId">The notification identifier.</param>
+		/// <returns>Task&lt;Notifications&gt;.</returns>
+        public Task<Notifications> GetNotification(int notificationId)
         {
             string url = string.Format("/notification/{0}", notificationId);
-            return _podio.Get<Notifications>(url);
+            return _podio.GetAsync<Notifications>(url);
         }
 
-        /// <summary>
-        /// Returns a list of notifications based on the query parameters. The notifications will be grouped based on their context.
-        /// <para>Podio API Reference: https://developers.podio.com/doc/notifications/get-notifications-290777 </para>
-        /// </summary>
-        /// <param name="contextType">The type of the context to get notifications for, f.ex. "conversation", "item" or "task"</param>
-        /// <param name="createdFrom">The earliest date and time to return notifications from</param>
-        /// <param name="createdTo">The latest date and time to return notifications from</param>
-        /// <param name="direction">"incoming" to get incoming notifications, "outgoing" to get outgoing notifications. Default value: incoming</param>
-        /// <param name="limit">The maximum number of notifications to return, maxium is "100". Default value: 20</param>
-        /// <param name="offSet">The offet into the returned notifications. Default value: 0</param>
-        /// <param name="starred">False to get only unstarred notifications, true to get only starred notifications, leave blank for both</param>
-        /// <param name="type">A type of notification, see the area for possible types</param>
-        /// <param name="userId">The user id of the other part of the notification</param>
-        /// <param name="viewed">False to get all unviewed notifications, true to get all viewed notifications, leave blank for both</param>
-        /// <param name="viewedFrom">When returning only unviewed notifications (above), notifications viewed after the given date and time will also be returned. Use this to keep pagination even when some notifications has been viewed after initial page load.</param>
-        /// <returns></returns>
-        public List<Notifications> GetNotifications(string contextType = null, DateTime? createdFrom = null, DateTime? createdTo = null, string direction = "incoming", int limit = 20, int offSet = 0, bool? starred = null, string type = null, int? userId = null, bool? viewed = null, DateTime? viewedFrom = null)
+		/// <summary>
+		/// Returns a list of notifications based on the query parameters. The notifications will be grouped based on their context.
+		/// <para>Podio API Reference: https://developers.podio.com/doc/notifications/get-notifications-290777 </para>
+		/// </summary>
+		/// <param name="contextType">The type of the context to get notifications for, f.ex. "conversation", "item" or "task"</param>
+		/// <param name="createdFrom">The earliest date and time to return notifications from</param>
+		/// <param name="createdTo">The latest date and time to return notifications from</param>
+		/// <param name="direction">"incoming" to get incoming notifications, "outgoing" to get outgoing notifications. Default value: incoming</param>
+		/// <param name="limit">The maximum number of notifications to return, maxium is "100". Default value: 20</param>
+		/// <param name="offSet">The offet into the returned notifications. Default value: 0</param>
+		/// <param name="starred">False to get only unstarred notifications, true to get only starred notifications, leave blank for both</param>
+		/// <param name="type">A type of notification, see the area for possible types</param>
+		/// <param name="userId">The user id of the other part of the notification</param>
+		/// <param name="viewed">False to get all unviewed notifications, true to get all viewed notifications, leave blank for both</param>
+		/// <param name="viewedFrom">When returning only unviewed notifications (above), notifications viewed after the given date and time will also be returned. Use this to keep pagination even when some notifications has been viewed after initial page load.</param>
+		/// <returns>Task&lt;List&lt;Notifications&gt;&gt;.</returns>
+        public Task<List<Notifications>> GetNotifications(string contextType = null, DateTime? createdFrom = null, DateTime? createdTo = null, string direction = "incoming", int limit = 20, int offSet = 0, bool? starred = null, string type = null, int? userId = null, bool? viewed = null, DateTime? viewedFrom = null)
         {
             string url = "/notification/";
             var requestData = new Dictionary<string, string>()
@@ -132,7 +133,7 @@ namespace PodioPCL.Services
                 {"viewed",viewed.ToStringOrNull()},
                 {"viewed_from",viewedFrom.ToStringOrNull()}
             };
-            return _podio.Get<List<Notifications>>(url, requestData);
+            return _podio.GetAsync<List<Notifications>>(url, requestData);
         }
     }
 }

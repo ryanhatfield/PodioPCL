@@ -35,7 +35,7 @@ namespace PodioPCL.Services
                 limit = limit,
                 offset = offset
             };
-            return _podio.Post<List<SearchResult>>(url, requestData);
+            return _podio.PostAsync<List<SearchResult>>(url, requestData);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace PodioPCL.Services
                 limit = limit,
                 offset = offset
             };
-            return _podio.Post<List<SearchResult>>(url, requestData);
+            return _podio.PostAsync<List<SearchResult>>(url, requestData);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace PodioPCL.Services
                 limit = limit,
                 offset = offset
             };
-            return _podio.Post<List<SearchResult>>(url, requestData);
+            return _podio.PostAsync<List<SearchResult>>(url, requestData);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace PodioPCL.Services
                 limit = limit,
                 offset = offset
             };
-            return _podio.Post<List<SearchResult>>(url, requestData);
+            return _podio.PostAsync<List<SearchResult>>(url, requestData);
         }
     }
 }
