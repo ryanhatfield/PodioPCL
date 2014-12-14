@@ -9,7 +9,23 @@ namespace PodioPCL.Tests
 	public class PodioAuthenticationTests
 	{
 		[TestMethod]
-		public async Task TestMethod1()
+		public async Task OrgTest()
+		{
+			Podio _Podio;
+			StaticAuthStore _AuthStore;
+
+			_AuthStore = new StaticAuthStore();
+			_Podio = new Podio(Settings.ClientId, Settings.ClientSecret, _AuthStore);
+			await _Podio.AuthenticateWithPassword("username", "password");
+			Assert.IsTrue(_Podio.IsAuthenticated());
+
+			var orgs = await _Podio.OrganizationService.GetOrganizations();
+
+			Assert.IsNotNull(orgs);
+		}
+
+		[TestMethod]
+		public async Task ItemTest()
 		{
 			Podio _Podio;
 			StaticAuthStore _AuthStore;

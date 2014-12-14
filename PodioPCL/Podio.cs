@@ -282,9 +282,9 @@ namespace PodioPCL
 					if (item == "file")
 						await AddFileToRequestStream(requestData.filePath, requestData.fileName, requestData.mimeType, request);
 					else if (item == "oauth")
-						WriteToRequestStream(EncodeAttributes(requestData), request);
+						await WriteToRequestStream(EncodeAttributes(requestData), request);
 					else
-						WriteToRequestStream(requestData, request);
+						await WriteToRequestStream(requestData, request);
 				}
 			}
 
