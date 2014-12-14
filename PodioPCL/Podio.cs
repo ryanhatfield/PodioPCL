@@ -290,14 +290,14 @@ namespace PodioPCL
 
 			try
 			{
-				Task<WebResponse> responseTask = System.Threading.Tasks.Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, request);
+				WebResponse webResponse = await Task.Factory.FromAsync<WebResponse>(request.BeginGetResponse, request.EndGetResponse, request);
 
-				using (WebResponse response = await responseTask)
+				using (webResponse)
 				{
-					podioResponse.Status = (int)((HttpWebResponse)response).StatusCode;
-					foreach (string key in response.Headers.AllKeys)
+					podioResponse.Status = (int)((HttpWebResponse)webResponse).StatusCode;
+					foreach (string key in webResponse.Headers.AllKeys)
 					{
-						responseHeaders.Add(key, response.Headers[key]);
+						responseHeaders.Add(key, webResponse.Headers[key]);
 					}
 
 					if (options != null && options.ContainsKey("file_download"))
@@ -305,16 +305,16 @@ namespace PodioPCL
 						using (var memoryStream = new MemoryStream())
 						{
 							var fileResponse = new FileResponse();
-							response.GetResponseStream().CopyTo(memoryStream);
+							webResponse.GetResponseStream().CopyTo(memoryStream);
 							fileResponse.FileContents = memoryStream.ToArray();
-							fileResponse.ContentType = response.ContentType;
-							fileResponse.ContentLength = response.ContentLength;
+							fileResponse.ContentType = webResponse.ContentType;
+							fileResponse.ContentLength = webResponse.ContentLength;
 							return (T)fileResponse.ChangeType<T>();
 						}
 					}
 					else if (options != null && options.ContainsKey("return_raw"))
 					{
-						using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+						using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
 						{
 							podioResponse.Body = sr.ReadToEnd();
 							return podioResponse.Body;
@@ -322,7 +322,7 @@ namespace PodioPCL
 					}
 					else
 					{
-						using (StreamReader sr = new StreamReader(response.GetResponseStream()))
+						using (StreamReader sr = new StreamReader(webResponse.GetResponseStream()))
 						{
 							podioResponse.Body = sr.ReadToEnd();
 						}
