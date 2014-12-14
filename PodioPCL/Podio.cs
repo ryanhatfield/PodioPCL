@@ -610,6 +610,14 @@ namespace PodioPCL
 		}
 
 		/// <summary>
+		/// Remove the Authenticate.
+		/// </summary>
+		public void DeAuthenticate()
+		{
+			AuthStore.Set(null);
+		}
+
+		/// <summary>
 		/// Refresh the Access Token.
 		/// <para>When the access token expires, you can use this method to refresh your access, and gain another access_token</para><para>Podio API Reference: https://developers.podio.com/authentication </para>
 		/// </summary>
