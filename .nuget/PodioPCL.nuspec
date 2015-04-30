@@ -2,24 +2,24 @@
 <package >
   <metadata>
     <id>PodioPCL</id>
-    <version>0.2.2</version>
+    <version>0.2.3</version>
     <authors>ryan.hatfield</authors>
     <owners>ryan.hatfield</owners>
     <licenseUrl>https://github.com/OnsharpRyan/PodioPCL/blob/master/LICENSE</licenseUrl>
     <projectUrl>hhttps://github.com/OnsharpRyan/PodioPCL/</projectUrl>
-	  <iconUrl>https://lh5.ggpht.com/11PttuYuHo8SiFmZ2AGyD-7S_QWP5fADqDj5A14vuKMIdOjktiRvaSuQp_FgrP_gtVbK=w300</iconUrl>
+    <iconUrl>https://lh5.ggpht.com/11PttuYuHo8SiFmZ2AGyD-7S_QWP5fADqDj5A14vuKMIdOjktiRvaSuQp_FgrP_gtVbK=w300</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>PCL Version of Podio library. NOT FINISHED YET but functional if you don't need to upload images. That should be finished soon. Check out the Examples on GitHub.</description>
     <summary>PCL Version of the Podio Library.</summary>
-    <copyright>Copyright 2014</copyright>
+    <copyright>Copyright 2015</copyright>
     <tags>Podio PodioPCL Podio.NET PodioNet Podio .Net</tags>
     <dependencies>
-		<dependency id="Newtonsoft.Json" version="[6.0.7]" />
+      <dependency id="Newtonsoft.Json" />
     </dependencies>
   </metadata>
-	<files>	
-		<file src="..\PodioPCL\bin\Release\PodioPCL.dll" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
-		<file src="..\PodioPCL\bin\Release\PodioPCL.pdb" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
-		<file src="..\PodioPCL\bin\Release\PodioPCL.xml" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
-	</files>
+  <files>
+    <file src="..\PodioPCL\bin\Release\PodioPCL.dll" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
+    <file src="..\PodioPCL\bin\Release\PodioPCL.pdb" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
+    <file src="..\PodioPCL\bin\Release\PodioPCL.xml" target="lib\portable-net45+netcore45+wp8+MonoAndroid1+MonoTouch1" />
+  </files>
 </package>
